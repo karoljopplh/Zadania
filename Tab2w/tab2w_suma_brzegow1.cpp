@@ -2,8 +2,8 @@
 #include <cstdlib>
 #include <windows.h>
 
-#define XX 4
-#define YY 3
+#define XX 5
+#define YY 4
 /**/
 
 void gotoxy(int x, int y)
@@ -20,28 +20,34 @@ int main()
 	int tab[XX][YY], ix, iy;
 	gotoxy(28, 1);
 	cout<<"Testowanie tablic 2W";
-	gotoxy(1,2);
+	//gotoxy(1,2);
 	for(iy=0; iy<YY; iy++)
 	{
 		for(ix=0; ix<XX; ix++)
 		{
-			cout<<"tab["<<ix<<"]["<<iy<<"] = ";
-			cin>>tab[ix][iy];
-		}
+			gotoxy((1+ix)*5-4, iy+2);
+			cin>>tab[ix][iy];         
+		}   
+			                 
 	}
-	system("pause");
+	gotoxy(32,15);
+	cout<<"Po nacisnieciu listing kontrolny";
+	system("pause>>NULL");
 	system("cls");
-	gotoxy(1,15);
+	gotoxy(32,15);
 	cout<<"Ponizej listing kontrolny:"<<endl;
 	for(iy=0; iy<YY; iy++)
 	{
-		for(ix=0; ix<YY; ix++)
+		for(ix=0; ix<XX; ix++)
 		{
-			cout<<"tab["<<ix<<"]["<<iy<<"] = "<<tab[ix][iy]<<endl;
-		}
-	}
+			gotoxy((1+ix)*5-4, iy+2);
+			cout<<tab[ix][iy];         
+		}   
+			                 
+	} 
 	
-	system("pause");
-	
+	gotoxy(22,15);
+	cout<<"Po nacisnieciu klawisza koniec programu";
+	system("pause>>NULL");
 	return 0;
 }
