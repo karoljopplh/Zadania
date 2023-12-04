@@ -2,8 +2,8 @@
 #include <cstdlib>
 #include <windows.h>
 
-#define XX 3
-#define YY 3
+#define XX 5
+#define YY 5
 /**/
 
 void gotoxy(int x, int y)
