@@ -37,6 +37,7 @@ int main()
 	// Obliczanie ilości x>0, x<0 i x == 0
 	int x,ile_d = 0, ile_u = 0, ile_z = 0; // ile_d (dodatnich), ile_u (ujemnych) ile_z (zer)
 	int suma_d=0, suma_u=0; // suma_d (suma dodatnich), suma_u (suma ujemnych)
+	float srednia_u = 0 , srednia_d = 0;
 	for(int i=0; i<XX; i++)
 		for(int j=0; j<YY; j++)
 		{
@@ -56,10 +57,14 @@ int main()
 			}
 		}
 	
+	srednia_d = suma_d/ile_d;
+	srednia_u = suma_u/ile_u;
 	cout<<endl<<"Ilosc dodatnich: "<<ile_d<<endl;
 	cout<<"Suma dodatnich: "<<suma_d<<endl;
+	cout<<"Srednia dodatnich: "<<srednia_d<<endl;
 	cout<<"Ilosc ujemnych: "<<ile_u<<endl;
 	cout<<"Suma ujemnych: "<<suma_u<<endl;
+	cout<<"Srednia ujemnych: "<<srednia_u<<endl;
 	cout<<"Ilosc zer: "<<ile_z<<endl;
 	
 	
@@ -104,7 +109,7 @@ int main()
 		}
 	}
 	
-	cout<<"suma = "<<suma<<endl;
+	cout<<"suma wszystkich = "<<suma<<endl;
 	cout<<"Po nacisnieciu listing kontrolny";
 	system("pause>>NULL");
 	system("cls");gotoxy(32,15);
