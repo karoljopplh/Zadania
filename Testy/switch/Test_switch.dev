@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=test_switch7.cpp
+FileName=test_switch8_gra.cpp
 CompileCpp=1
 Folder=
 Compile=1
