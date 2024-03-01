@@ -12,10 +12,11 @@ float obw_prost2(float a, float b);
 int silnia(int n);
 unsigned long long silnia_rec(unsigned int n);	//Silnia obliczana funkcją rekurencyjna
 float pole_prost(float a, float b);
+int pot(int p, int w);
 
 int main() 
 {
-	float bok1, bok2, obwod, pole;
+	float bok1, bok2, obwod, pole, p, w;
 	int n=0;
 	cout<<"Proba nr 1 z wartosciami: 2 i 5"<<endl;
 	obwod=obw_prost1(2, 5);
@@ -57,6 +58,12 @@ int main()
 		cout<<"ERROR - n niepoprawne (n<0)"<<endl;
 	else
 		cout<<silnia(n);
+	cout<<endl<<"Obliczanie potegi"<<endl;
+	cout<<"Podaj p = ";
+	cin>>p;
+	cout<<"Podaj w = ";
+	cin>>w;
+	cout<<pot(p,w);
 	klawisz2();
 	return 0;
 }
@@ -129,9 +136,12 @@ unsigned long long silnia_rec(int n)	//Silnia obliczana funkcją rekurencyjna
 	if(n<0)
 		return -1;	//n ujemne - ERROR
     // Obsługa przypadku dla n równego 0 lub 1
-    if (n == 0 || n == 1) {
+    if (n == 0 || n == 1)
+	{
         return 1;
-    } else {
+    }
+	else
+	{
         // Obliczanie silni dla n większego od 1
         return n * silnia(n - 1);
     }
@@ -147,4 +157,53 @@ float pole_prost(float a, float b)
 	if(a<=0 && b>0)
 		return -1;	//bad a
     return a*b;
+}
+/*
+int pot(int p, int w)
+{
+	if(p==0)
+	{
+		if(w==0)
+			return -1;	//niejednoznaczne
+		if(w>0)
+			return 0;
+		if(w<0)
+			return -2;	//nieokreslone
+	}
+	int wynik=1;
+	while(w>0)
+	{
+		wynik*=p;
+		w--;
+	}
+	if(w==0)
+		return wynik;
+	w *= -1;
+	while(w>0)
+	{
+		wynik*=p;
+		w--;
+	}
+	wynik=1/wynik;
+	return wynik;
+}
+*/
+int pot(int p, int w)
+{
+	if(p==0 && w<0)
+		return -1;	//nieokreslone
+	if(p==0 && w==0)
+		return -2;	//niejednoznaczne
+	int wynik = 1;
+	while(w>0)
+	{
+		wynik*=p;
+		w--;
+	}
+	while(w<0)
+	{
+		wynik*=(1/p);
+		w++;
+	}
+	return wynik;
 }
