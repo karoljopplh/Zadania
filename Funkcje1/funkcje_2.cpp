@@ -13,11 +13,13 @@ int silnia(int n);
 unsigned long long silnia_rec(unsigned int n);	//Silnia obliczana funkcją rekurencyjna
 float pole_prost(float a, float b);
 int pot(int p, int w);
+void prostokat1(float a, float b, float *ob, float *po);
+void prostokat2(float a, float b, float *ob, float *po, int *error);
 
 int main() 
 {
 	float bok1, bok2, obwod, pole, p, w;
-	int n=0;
+	int n=0, error;
 	cout<<"Proba nr 1 z wartosciami: 2 i 5"<<endl;
 	obwod=obw_prost1(2, 5);
 	cout<<"Obwod nr 1 = "<<obwod<<endl;
@@ -63,7 +65,33 @@ int main()
 	cin>>p;
 	cout<<"Podaj w = ";
 	cin>>w;
-	cout<<pot(p,w);
+	cout<<pot(p,w)<<endl;
+	
+	cout<<"Wywolanie fun. prostokat1"<<endl;
+	prostokat1(bok1, bok2, &obwod, &pole);
+	cout<<"Obwod = "<<obwod<<endl;
+	cout<<"Pole = "<<pole<<endl;
+	
+	cout<<"Wywolanie fun. prostokat2"<<endl;
+	prostokat2(bok1, bok2, &obwod, &pole, &error);
+	if(error==0)
+	{
+		cout<<"Pole = "<<pole<<endl;
+		cout<<"Obwod = "<<obwod<<endl;
+	}
+	else
+	{
+		//cout<<error<<endl;	//d-debug
+		switch (error)
+		{
+			case -1:	cout<<"Bok a zly"<<endl;
+						break;
+			case -2:	cout<<"Bok b zly"<<endl;
+						break;
+			case -3:	cout<<"Oba boki zle"<<endl;
+		}	
+	}
+	
 	klawisz2();
 	return 0;
 }
@@ -134,17 +162,10 @@ int silnia(int n)
 unsigned long long silnia_rec(int n)	//Silnia obliczana funkcją rekurencyjna
 {
 	if(n<0)
-		return -1;	//n ujemne - ERROR
-    // Obsługa przypadku dla n równego 0 lub 1
-    if (n == 0 || n == 1)
-	{
+		return -1;				//n ujemne - ERROR
+    if (n == 0 || n == 1)		// Obsługa przypadku dla n równego 0 lub 1
         return 1;
-    }
-	else
-	{
-        // Obliczanie silni dla n większego od 1
-        return n * silnia(n - 1);
-    }
+    return n * silnia(n - 1);	// Obliczanie silni dla n większego od 1
 }
 
 float pole_prost(float a, float b)
@@ -206,4 +227,21 @@ int pot(int p, int w)
 		w++;
 	}
 	return wynik;
+}
+
+void prostokat1(float a, float b, float *ob, float *po)
+{
+	*ob=2*(a+b);
+	*po=a*b;
+}
+
+void prostokat2(float a, float b, float *ob, float *po, int *error)
+{
+	*error=0;
+	if(b<=0)
+		*error -= 2;	//bad b
+	if(a<=0)
+		*error -= 1;	//bad a, if a and b are bad then -3
+	*ob=2*(a+b);
+	*po=a*b;
 }
