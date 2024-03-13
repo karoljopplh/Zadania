@@ -1,0 +1,97 @@
+----------------------------------------- Zapisanie pliku -----------------------------------------------------------
+File path = new file(name+ ".txt"); tworzy obiekt klasy file, nazwa pliku jest dostarczana jako argument "name" i 
+dodawanie jest rozszerzenie "txt."
+
+PrintWriter save; Deklaracja obiektu klasy PirntWriter, który służy do zapisywania danych do pliku tekstowego 
+
+save = new PrintWriter(path); wywołuje on konstruktor pod scięzke path 
+
+if (path.createNewFile()) { Sprawdza czy plik istnieje, Jesli nie istnieje to zostanie utworzony
+
+save.println (licznoscwo); zapisuje liczbe danych do pliku
+
+for(int i=0;i < licznoscwo;i++) { ... }: Pętla, która przechodzi przez listę obiektów i zapisuje ich właściwości 
+(marka, model, przebieg, rejestracja, rok produkcji, silnik, nadwozie, waga, cena) do pliku
+
+save.close();: Zamyka strumień PrintWriter, aby zwolnić zasoby i zapewnić prawidłowe zapisanie danych.
+
+atch (IOException e)  Obsługuje wyjątek IOException, który może wystąpić podczas operacji wejścia/wyjścia 
+(np. błąd zapisu do pliku).
+
+Ta funkcja służy do zapisywania danych  
+do pliku tekstowego o nazwie określonej przez parametr name. Jeżeli plik istnieje, 
+to zostanie nadpisany, a jeżeli nie istnieje, to zostanie utworzony nowy plik.
+----------------------------------- Wczytanie pliku -------------------------------------------------------------
+Scanner read = new Scanner(new File(name+".txt")); 
+Otwarcie pliku: nazwa pliku jest dostarczana jako argument "name. Tworzy obiekt Scanner do odczytu z 
+pliku tekstowego o tej nazwie, dodając ".txt" do nazwy pliku.
+
+int border = Integer.parseInt(read.nextLine());
+licznoscwo = border;
+Odczyt granicy danych: Pierwsza linia pliku zawiera liczbę, która określa, ile danych będzie w pliku. 
+Ta liczba jest wczytywana i przypisywana do zmiennej border.
+
+Odczyt danych dla każdego elementu: następuje odczyt kolejnych linii pliku w pętli, 
+gdzie dla każdej linii tworzony jest nowy obiekt klasy Osobowe i dodawany do listy tabosobowe
+
+read.close(); Po zakończeniu pętli, plik jest zamykany.
+
+return true;
+} catch (FileNotFoundException e) {
+    return false;
+}
+W przypadku prawidłowego wykonania wszystkich kroków, metoda zwraca true. 
+Jeśli plik nie został znaleziony (FileNotFoundException), zwraca false.
+
+W skrócie, ta metoda odczytuje dane z pliku tekstowego, w którym pierwsza linia określa liczbę elementów, 
+a następnie dla każdego elementu odczytuje i tworzy nowy obiekt klasy Osobowe, który jest dodawany do listy.
+------------------------------------------------------------------------------------------------------------------------
+Sortowanie Bąbelkowe 
+
+Przyjąłem sobie ze ze metoda sortcena przyjmuje argument zmienna boolean kier która okresla czy 
+sortowanie ma być rosnące (true) czy malejące (false).
+
+Sprawdzenie kierunku sortowania (if(kier))
+Jeśli kier to true, co oznacza rosnące sortowanie, to algorytm przechodzi do sortowania rosnącego.
+Jeśli kier to false, co oznacza malejące sortowanie, to algorytm przechodzi do sortowania malejącego.
+
+
+
+Zmienna pom to zmienna pomocnicza, która jest używana do zamiany miejscami dwóch obiektów w liście.
+
+
+Sortowanie bąbelkowe
+
+Zastosowano dwie pętle for, aby przejść przez każdą parę elementów na liście i porównać ich ceny.
+Wewnętrza pętla (for(int j=0;j<tabosobowe.size();j++)) porównuje obiekty na podstawie ich cen.
+Jeśli cena obiektu na pozycji i jest większa (lub mniejsza, w zależności od kierunku sortowania) 
+niż cena obiektu na pozycji j, to obiekty są zamieniane miejscami.
+
+
+algorytm sortowania bąbelkowego dla listy obiektów klasy Osobowe na podstawie ich cen, 
+w zależności od określonego kierunku sortowania (kier).
+ Algorytm ten polega na porównywaniu par sąsiednich elementów i zamianie ich miejscami, 
+jeśli są w niewłaściwej kolejności. Proces ten powtarza się, aż lista będzie posortowana.
+
+-------------------------------------------------------------------------------------------------------------------------
+posortowano to flaga, która oznacza, czy lista jest już posortowana. Początkowo ustawiona jest na false.
+x to zmienna jest po to  aby unikać niepotrzebnych porównań na końcu listy.
+pom to zmienna pomocnicza, która jest używana do zamiany miejscami dwóch obiektów w liście.
+
+boolean posortowano = false;
+int x = 0;
+Osobowe pom = new Osobowe("0","0",0,"0",0,0,"0",0,0);
+
+
+Sprawdzenie kierunku sortowania (if(kier))
+Jeśli kier to true, co oznacza rosnące sortowanie, to algorytm przechodzi do sortowania rosnącego.
+Jeśli kier to false, co oznacza malejące sortowanie, to algorytm przechodzi do sortowania malejącego.
+
+
+Pętla while wykonuje się, dopóki lista nie zostanie posortowana.
+Po każdym przejściu pętli zmienna x jest inkrementowana, aby pomijać już posortowane elementy na końcu listy.
+Po zakończeniu sortowania, lista tabosobowe jest posortowana alfabetycznie według wartości pola nadwozie.
+
+
+algorytm ten porównuje elementy listy na podstawie alfabetycznej kolejności wartości pola nadwozie i zamienia je miejscami, 
+aby uzyskać posortowaną listę w zadanym kierunku.
