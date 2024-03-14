@@ -8,11 +8,11 @@ using namespace std;
 
 void klawisz2();
 bool wyszukiwanie_do_1(int t[], int n, int szukana);
-void wyszukiwanie_min(int t[], int n, int *o[]);
+int wyszukiwanie_min(int t[], int n);
 
 int main()
 {
-	int n, i, szukana, *tab, o[];
+	int n, i, szukana, *tab, *o, min;
 	bool znaleziono;
 	cout<<"Jaki rozmiar tablicy? ";
 	cin>>n;
@@ -34,9 +34,16 @@ int main()
 	
 	//ponizej badany algorytm
 	
+	min = wyszukiwanie_min(tab, n);
+	cout<<"Wartosc minimalna = "<<min<<endl;
+	for(i=0; i<n; i++)
+		if(min==tab[i])
+			cout<<"Wartosc minimalna pod indeksem = "<<i<<endl;
+	/*
 	znaleziono = 0;
 	cout<<"Czego szukasz? ";
 	cin>>szukana;
+	*/
 	/*
 	for(i=0; i<n; i++)
 		if(szukana==tab[i])
@@ -46,14 +53,15 @@ int main()
 		}
 	*/
 //	znaleziono=wyszukiwanie_do_1(tab, n, szukana);
-	if(wyszukiwanie_do_1(tab, n, szukana))
+/*	if(wyszukiwanie_do_1(tab, n, szukana))
 		cout<<"Szukana jest w tablicy"<<endl;
 	else
 		cout<<"Niczego nie znaleziono"<<endl;
-	
+*/	
 	//koniec algorytmu
 	
 	delete [] tab;
+	delete [] o;
 	klawisz2();
 	return 0;
 }
@@ -66,7 +74,22 @@ bool wyszukiwanie_do_1(int t[], int n, int szukana) //lub int *t
 	return 0;
 }
 
-int wyszukiwanie_min(int t[], int n, int *o[])	//
+int wyszukiwanie_min(int t[], int n)
+{
+	if(n<=0)
+		return -1;	// ERROR - empty table
+		
+	int min = t[0];
+	for(int i=1; i<n; i++)
+	{
+		if(t[i]<min)
+			min=t[i];
+	}
+	return min;
+}
+
+/*
+int wyszukiwanie_min(int t[], int n, int *o[])	//I wasn't in a good mental condition at that time
 {
 	if(n<=0)
 		return -1;	// ERROR - empty table
@@ -82,13 +105,12 @@ int wyszukiwanie_min(int t[], int n, int *o[])	//
 	for(int i=0 k=0; i<n; i++)
 	{
 		if(t[i]==min)
-		{
-			*o[k]=i;
 			k++;
-		}
 	}
 	
-/*	for(int i=0, j=0; i<k; i++)	//useless, I was sleepy
+	o=new int[k];
+	
+	for(int i=0, j=0; i<k; i++)
 	{
 		if(t[i]==min)
 		{
@@ -96,8 +118,9 @@ int wyszukiwanie_min(int t[], int n, int *o[])	//
 			j++;
 		}
 	}
-*/	return min;
+	return min;
 }
+*/
 
 void klawisz2()
 {
