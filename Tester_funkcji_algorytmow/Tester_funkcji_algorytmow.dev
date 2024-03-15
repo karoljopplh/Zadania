@@ -1,6 +1,6 @@
 [Project]
-filename=Tester_algorytmow.dev
-name=Tester_algorytmow
+filename=Tester_funkcji_algorytmow.dev
+name=Tester_funkcji_algorytmow
 Type=1
 Ver=2
 ObjFiles=
@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=testowanie_wyszukiwania5.cpp
+FileName=tester_funkcji_algorytmow.cpp
 CompileCpp=1
 Folder=
 Compile=1
