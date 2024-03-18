@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  STARTUP                                                              03/18/2024 12:26:08 PAGE     1
+A51 MACRO ASSEMBLER  STARTUP                                                              03/18/2024 13:09:19 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -36,52 +36,26 @@ LOC  OBJ            LINE     SOURCE
 002D                  26     licznik0:
 002D B90007           27             cjne R1,#0,jedynka
 0030 20B220           28             jb przycisk,wyjdz
-                      29             
-0033 7901             30             mov R1,#1
-0035 801C             31             jmp wyjdz
-0037                  32     jedynka:
-0037 B90107           33             cjne R1,#1,trojka
-003A 20B216           34             jb przycisk,wyjdz
-003D 7902             35             mov R1,#2
-003F 8012             36             jmp wyjdz
-0041                  37     trojka:
-0041 B90307           38             cjne R1,#3,czworka
-0044 30B20C           39             jnb przycisk,wyjdz
-0047 7904             40             mov R1,#4
-0049 8008             41             jmp wyjdz
-004B                  42     czworka:
-004B B90405           43             cjne R1,#4,wyjdz
-004E 30B202           44             jnb przycisk,wyjdz
-0051 7900             45             mov R1,#0
-0053                  46     wyjdz:
-                      47     
-                      48     
-                      49     
-                      50     
-                      51     
-                      52     
-                      53     
-                      54     
-                      55     
-                      56     
-                      57     
-A51 MACRO ASSEMBLER  STARTUP                                                              03/18/2024 12:26:08 PAGE     2
-
-                      58     
-                      59     
-                      60     
-                      61     
-                      62     
-                      63     
-                      64     
-                      65     
-                      66     
-                      67     
-                      68     
-                      69     
-0053 32               70             reti
-                      71             end
-A51 MACRO ASSEMBLER  STARTUP                                                              03/18/2024 12:26:08 PAGE     3
+0033 7901             29             mov R1,#1
+0035 801C             30             jmp wyjdz
+0037                  31     jedynka:
+0037 B90107           32             cjne R1,#1,trojka
+003A 20B216           33             jb przycisk,wyjdz
+003D 7902             34             mov R1,#2
+003F 8012             35             jmp wyjdz
+0041                  36     trojka:
+0041 B90307           37             cjne R1,#3,czworka
+0044 30B20C           38             jnb przycisk,wyjdz
+0047 7904             39             mov R1,#4
+0049 8008             40             jmp wyjdz
+004B                  41     czworka:
+004B B90405           42             cjne R1,#4,wyjdz
+004E 30B202           43             jnb przycisk,wyjdz
+0051 7900             44             mov R1,#0
+0053                  45     wyjdz:
+0053 32               46             reti
+                      47             end
+A51 MACRO ASSEMBLER  STARTUP                                                              03/18/2024 13:09:19 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------

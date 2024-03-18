@@ -1,0 +1,126 @@
+A51 MACRO ASSEMBLER  PRZYCISKI_WYSWIETLACZ                                                03/18/2024 14:27:53 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\przyciski_wyswietlacz.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE przyciski_wyswietlacz.a51 SET(SMALL) DEBUG PRINT(.\Listings\przyciski_w
+                      yswietlacz.lst) OBJECT(.\Objects\przyciski_wyswietlacz.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0080                 1     wyswietlacz equ P0
+  0090                 2     cyfra0 bit P1.0
+  00B2                 3     przycisk bit P3.2
+  00B3                 4     przycisk1       bit P3.3
+0000                   5                             org 0h
+0000 800B              6                     jmp poczatek
+000B                   7                             org 0bh
+000B 802C              8                     jmp licznik0
+000D                   9     poczatek:
+000D C290             10                     clr cyfra0
+000F 90007C           11                     mov DPTR, #seg7
+0012 7900             12                     mov R1,#0
+0014 7A00             13                     mov R2,#0
+0016 7B00             14                     mov R3,#0
+0018 758900           15                     mov TMOD,#00000000b;//tryb 13 bitowy
+001B D28C             16                     setb TR0
+001D D2A9             17                     setb ET0
+001F D2AF             18                     setb EA
+0021 7580FF           19                     mov wyswietlacz,#0ffh
+0024                  20     start:
+0024 EB               21             mov A, R3
+0025 93               22             movc A,@A+DPTR
+0026 F580             23             mov wyswietlacz,A
+0028 B90206           24             cjne R1,#2,start1
+002B 7903             25             mov R1,#3
+002D 0B               26             inc R3
+002E BB0A00           27             cjne R3,#10,start1
+                      28             
+0031                  29     start1:
+0031 BA02F0           30             cjne R2,#2,start
+0034 7A03             31             mov R2,#3
+0036 1B               32             dec R3
+0037 80EB             33             jmp start
+                      34             
+0039                  35     licznik0:
+0039 B90007           36             cjne R1,#0,jedynka
+003C 20B247           37             jb przycisk,wyjdz
+003F 7901             38             mov R1,#1
+0041 8043             39             jmp wyjdz
+0043                  40     jedynka:
+0043 B90107           41             cjne R1,#1,trojka
+0046 20B23D           42             jb przycisk,wyjdz
+0049 7902             43             mov R1,#2
+004B 8039             44             jmp wyjdz
+004D                  45     trojka:
+004D B90307           46             cjne R1,#3,czworka
+0050 30B233           47             jnb przycisk,wyjdz
+0053 7904             48             mov R1,#4
+0055 802F             49             jmp wyjdz
+0057                  50     czworka:
+0057 B9042C           51             cjne R1,#4,wyjdz
+005A 30B229           52             jnb przycisk,wyjdz
+005D 7900             53             mov R1,#0
+                      54     
+005F                  55     jedynka1:
+005F BA0107           56             cjne R2,#1,trojka1
+0062 20B316           57             jb przycisk1,wyjdz1
+A51 MACRO ASSEMBLER  PRZYCISKI_WYSWIETLACZ                                                03/18/2024 14:27:53 PAGE     2
+
+0065 7A02             58             mov R2,#2
+0067 8012             59             jmp wyjdz1
+0069                  60     trojka1:
+0069 BA0307           61             cjne R2,#3,czworka1
+006C 30B30C           62             jnb przycisk1,wyjdz1
+006F 7A04             63             mov R2,#4
+0071 8008             64             jmp wyjdz1
+0073                  65     czworka1:
+0073 BA0405           66             cjne R2,#4,wyjdz1
+0076 30B302           67             jnb przycisk1,wyjdz1
+0079 7A00             68             mov R2,#0
+007B                  69     wyjdz1:
+007B 32               70             reti
+007C C0F9A4B0         71     seg7:   db 0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xd8,0x00,0x10
+0080 999282D8                
+0084 0010                    
+0086                  72     wyjdz:
+0086 32               73             reti
+                      74             end
+A51 MACRO ASSEMBLER  PRZYCISKI_WYSWIETLACZ                                                03/18/2024 14:27:53 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CYFRA0 . . . . . .  B ADDR   0090H.0 A   
+CZWORKA. . . . . .  C ADDR   0057H   A   
+CZWORKA1 . . . . .  C ADDR   0073H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+JEDYNKA. . . . . .  C ADDR   0043H   A   
+JEDYNKA1 . . . . .  C ADDR   005FH   A   
+LICZNIK0 . . . . .  C ADDR   0039H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+POCZATEK . . . . .  C ADDR   000DH   A   
+PRZYCISK . . . . .  B ADDR   00B0H.2 A   
+PRZYCISK1. . . . .  B ADDR   00B0H.3 A   
+SEG7 . . . . . . .  C ADDR   007CH   A   
+START. . . . . . .  C ADDR   0024H   A   
+START1 . . . . . .  C ADDR   0031H   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TROJKA . . . . . .  C ADDR   004DH   A   
+TROJKA1. . . . . .  C ADDR   0069H   A   
+WYJDZ. . . . . . .  C ADDR   0086H   A   
+WYJDZ1 . . . . . .  C ADDR   007BH   A   
+WYSWIETLACZ. . . .  D ADDR   0080H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

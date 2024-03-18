@@ -1,3 +1,4 @@
-".\Objects\STARTUP.obj" 
+".\Objects\STARTUP.obj",
+".\Objects\przyciski_wyswietlacz.obj" 
 TO ".\Objects\przyciski" 
 PRINT(".\Listings\przyciski.m51") RAMSIZE(256) 
