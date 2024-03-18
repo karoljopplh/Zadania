@@ -23,7 +23,7 @@ int main()
 	cin>>n;
 	tab=new int[n+1];	//because we want to start from index 1 to n for selection sort for some reason xd uvu ;_; ._. :3 XwX
 	srand(time(NULL));
-	for (i=1; i<n; i++)	//tu poprawki
+	for (i=1; i<=n; i++)	//tu poprawki
 	{
 	/*
 		cout<<"Podaj element o ind. "<<i<<": ";
