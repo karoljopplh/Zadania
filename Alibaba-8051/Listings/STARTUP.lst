@@ -1,0 +1,114 @@
+A51 MACRO ASSEMBLER  STARTUP                                                              03/18/2024 12:26:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\STARTUP.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE STARTUP.A51 SET(SMALL) DEBUG PRINT(.\Listings\STARTUP.lst) OBJECT(.\Obj
+                      ects\STARTUP.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0080                 1     diody equ P0
+  00B2                 2     przycisk bit P3.2
+  00B3                 3     przycisk1       bit P3.3
+0000                   4                             org 0h
+0000 800B              5                     jmp poczatek
+000B                   6                             org 0bh
+000B 8020              7                     jmp licznik0
+000D                   8     poczatek:
+000D 7900              9                     mov R1,#0
+000F 7A00             10                     mov R2,#0
+0011 758900           11                     mov TMOD,#00000000b;//tryb 13 bitowy
+0014 D28C             12                     setb TR0
+0016 D2A9             13                     setb ET0
+0018 D2AF             14                     setb EA
+001A 7580FF           15                     mov diody,#0ffh
+001D                  16     start:
+001D B90204           17             cjne R1,#2,start1
+0020 1580             18             dec diody
+0022 7903             19             mov R1,#3
+0024                  20     start1:
+0024 BA02F6           21             cjne R2,#2,start
+0027 0580             22             inc diody
+0029 7A03             23             mov R2,#3
+002B 80F0             24             jmp start
+                      25             
+002D                  26     licznik0:
+002D B90007           27             cjne R1,#0,jedynka
+0030 20B220           28             jb przycisk,wyjdz
+                      29             
+0033 7901             30             mov R1,#1
+0035 801C             31             jmp wyjdz
+0037                  32     jedynka:
+0037 B90107           33             cjne R1,#1,trojka
+003A 20B216           34             jb przycisk,wyjdz
+003D 7902             35             mov R1,#2
+003F 8012             36             jmp wyjdz
+0041                  37     trojka:
+0041 B90307           38             cjne R1,#3,czworka
+0044 30B20C           39             jnb przycisk,wyjdz
+0047 7904             40             mov R1,#4
+0049 8008             41             jmp wyjdz
+004B                  42     czworka:
+004B B90405           43             cjne R1,#4,wyjdz
+004E 30B202           44             jnb przycisk,wyjdz
+0051 7900             45             mov R1,#0
+0053                  46     wyjdz:
+                      47     
+                      48     
+                      49     
+                      50     
+                      51     
+                      52     
+                      53     
+                      54     
+                      55     
+                      56     
+                      57     
+A51 MACRO ASSEMBLER  STARTUP                                                              03/18/2024 12:26:08 PAGE     2
+
+                      58     
+                      59     
+                      60     
+                      61     
+                      62     
+                      63     
+                      64     
+                      65     
+                      66     
+                      67     
+                      68     
+                      69     
+0053 32               70             reti
+                      71             end
+A51 MACRO ASSEMBLER  STARTUP                                                              03/18/2024 12:26:08 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CZWORKA. . . . . .  C ADDR   004BH   A   
+DIODY. . . . . . .  D ADDR   0080H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+JEDYNKA. . . . . .  C ADDR   0037H   A   
+LICZNIK0 . . . . .  C ADDR   002DH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+POCZATEK . . . . .  C ADDR   000DH   A   
+PRZYCISK . . . . .  B ADDR   00B0H.2 A   
+PRZYCISK1. . . . .  B ADDR   00B0H.3 A   
+START. . . . . . .  C ADDR   001DH   A   
+START1 . . . . . .  C ADDR   0024H   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TROJKA . . . . . .  C ADDR   0041H   A   
+WYJDZ. . . . . . .  C ADDR   0053H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
