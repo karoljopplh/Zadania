@@ -1,0 +1,72 @@
+A51 MACRO ASSEMBLER  WYSWIETLACZ                                                          03/04/2024 10:43:28 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\wyswietlacz.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE wyswietlacz.a51 SET(SMALL) DEBUG PRINT(.\Listings\wyswietlacz.lst) OBJE
+                      CT(.\Objects\wyswietlacz.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0083                 1     dioda bit       P0.3
+0000                   2             org 0h
+0000 7580FF            3                     mov P0,#0xff
+0003 C290              4                     clr P1.0
+0005 90002A            5                     mov DPTR,#seg7
+0008 7800              6                     mov R0,#0
+000A 790A              7                     mov R1,#10
+000C                   8     start:  
+000C E8                9                     mov A,R0
+000D 93               10                     movc A,@A+DPTR
+000E F580             11                     mov P0,A
+0010 111D             12                     call delay
+0012 08               13                     inc R0
+0013 1117             14                     call porownaj
+0015 80F5             15                     jmp start
+                      16     
+0017 B80A02           17     porownaj: cjne R0,#10,wyjdz
+001A 7800             18                       mov R0,#0
+001C                  19     wyjdz:            
+001C 22               20                     ret
+                      21     
+001D 7D05             22     delay:  mov R5,#5 ;komentarz
+001F 7EFF             23     sk3:    mov R6,#255
+0021 7FFF             24     sk2:    mov R7,#255
+0023 DFFE             25     sk1:    djnz R7,sk1 ;dekrementuje sie R7
+0025 DEFA             26                     djnz R6,sk2 ;dekrementuje sie R6 i ustawia wartosc R7 jeszcze raz
+0027 DDF6             27                     djnz R5,sk3 ;dekrementuje sie R5 i ustawia wartosc R7,R6 jeszcze raz
+0029 22               28                     ret
+                      29                     
+002A C0F9A4B0         30     seg7:   db 11000000b,11111001b,10100100b,10110000b,10011001b,10010010b,00000010b,11011000b,
+                             10000000b,00010000b
+002E 999202D8                
+0032 8010                    
+                      31     
+                      32                     
+                      33                     
+                      34                     end
+A51 MACRO ASSEMBLER  WYSWIETLACZ                                                          03/04/2024 10:43:28 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   001DH   A   
+DIODA. . . . . . .  B ADDR   0080H.3 A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+POROWNAJ . . . . .  C ADDR   0017H   A   
+SEG7 . . . . . . .  C ADDR   002AH   A   
+SK1. . . . . . . .  C ADDR   0023H   A   
+SK2. . . . . . . .  C ADDR   0021H   A   
+SK3. . . . . . . .  C ADDR   001FH   A   
+START. . . . . . .  C ADDR   000CH   A   
+WYJDZ. . . . . . .  C ADDR   001CH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

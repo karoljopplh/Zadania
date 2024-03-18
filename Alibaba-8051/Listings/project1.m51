@@ -1,0 +1,112 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    03/04/2024  10:51:01  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\diody.obj, .\Objects\mruganie.obj, .\Objects\wyswietlacz.obj TO .\Objects\project1
+>>  PRINT (.\Listings\project1.m51) RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\diody.obj (DIODY)
+  .\Objects\mruganie.obj (MRUGANIE)
+  .\Objects\wyswietlacz.obj (WYSWIETLACZ)
+
+
+LINK MAP OF MODULE:  .\Objects\project1 (DIODY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0005H     ABSOLUTE     
+* OVERLAP * CODE    0000H     0016H     ABSOLUTE     
+* OVERLAP * CODE    0000H     002DH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\project1 (DIODY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        DIODY
+  D:0080H         SYMBOL        P0
+  C:0003H         SYMBOL        STOP
+  C:0000H         LINE#         2
+  C:0003H         LINE#         3
+  -------         ENDMOD        DIODY
+
+  -------         MODULE        MRUGANIE
+  C:0009H         SYMBOL        DELAY
+  B:0080H.3       SYMBOL        DIODA
+  D:0080H         SYMBOL        P0
+  C:000FH         SYMBOL        SK1
+  C:000DH         SYMBOL        SK2
+  C:000BH         SYMBOL        SK3
+  C:0003H         SYMBOL        START
+  C:0000H         LINE#         3
+  C:0003H         LINE#         4
+  C:0005H         LINE#         5
+  C:0007H         LINE#         6
+  C:0009H         LINE#         8
+  C:000BH         LINE#         9
+  C:000DH         LINE#         10
+  C:000FH         LINE#         11
+  C:0011H         LINE#         12
+  C:0013H         LINE#         13
+  C:0015H         LINE#         14
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2024  10:51:01  PAGE 2
+
+
+  -------         ENDMOD        MRUGANIE
+
+  -------         MODULE        WYSWIETLACZ
+  C:0020H         SYMBOL        DELAY
+  B:0080H.3       SYMBOL        DIODA
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  C:0016H         SYMBOL        SEG7
+  C:0026H         SYMBOL        SK1
+  C:0024H         SYMBOL        SK2
+  C:0022H         SYMBOL        SK3
+  C:000AH         SYMBOL        START
+  C:0014H         SYMBOL        STOP
+  C:0008H         SYMBOL        ZERUJ
+  C:0000H         LINE#         3
+  C:0003H         LINE#         4
+  C:0005H         LINE#         5
+  C:0008H         LINE#         6
+  C:000AH         LINE#         8
+  C:000BH         LINE#         9
+  C:000CH         LINE#         10
+  C:000EH         LINE#         11
+  C:0010H         LINE#         12
+  C:0011H         LINE#         13
+  C:0014H         LINE#         14
+  C:0020H         LINE#         19
+  C:0022H         LINE#         20
+  C:0024H         LINE#         21
+  C:0026H         LINE#         22
+  C:0028H         LINE#         23
+  C:002AH         LINE#         24
+  C:002CH         LINE#         25
+  -------         ENDMOD        WYSWIETLACZ
+
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0004H
+
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0015H
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0048H BYTE ( 3%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=72
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

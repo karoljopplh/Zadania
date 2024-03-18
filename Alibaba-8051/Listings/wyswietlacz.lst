@@ -1,0 +1,73 @@
+A51 MACRO ASSEMBLER  WYSWIETLACZ                                                          03/04/2024 10:55:23 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+NO OBJECT MODULE REQUESTED
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE wyswietlacz.a51 SET(SMALL) DEBUG PRINT(.\Listings\wyswietlacz.lst) OBJE
+                      CT(.\Objects\wyswietlacz.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0083                 1     dioda   bit P0.3
+0000                   2             org     0h
+0000 7580FF            3                     mov P0,#0xff
+0003 C290              4                     clr     P1.0
+0005 90001F            5                     mov     DPTR,#seg7
+0008 7800              6     zeruj:  mov R0,#0
+000A                   7     start:  
+000A E8                8                     mov     A,R0
+000B 93                9                     movc A,@A+DPTR
+000C F580             10                     mov P0,A
+000E 1129             11                     call delay
+0010 08               12                     inc R0
+0011 B80AF6           13                     cjne R0,#10,start
+0014 E8               14     sc2:    mov     A,R0
+0015 93               15                     movc A,@A+DPTR
+0016 F580             16                     mov P0,A
+0018 1129             17                     call delay
+001A                  18                     djnz R0
+*** _________________________________________^
+*** ERROR #A38 IN 18 (wyswietlacz.a51, LINE 18): NUMBER OF OPERANDS DOES NOT MATCH INSTRUCTION
+001A B800F7           19                     cjne R0,#0,sc2
+001D 80E9             20     stop:   jmp zeruj
+                      21             
+001F C0F9A4B0         22     seg7:   db 0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xd8,0x00,0x10
+0023 999282D8                
+0027 0010                    
+                      23     
+                      24     
+0029 7D05             25     delay:  mov R5,#5
+002B 7EFF             26     sk3:    mov R6,#255
+002D 7FFF             27     sk2:    mov R7,#255             
+002F DFFE             28     sk1:    djnz R7,sk1
+0031 DEFA             29                     djnz R6,sk2
+0033 DDF6             30                     djnz R5,sk3
+0035 22               31                     ret
+                      32     
+                      33                     end
+A51 MACRO ASSEMBLER  WYSWIETLACZ                                                          03/04/2024 10:55:23 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0029H   A   
+DIODA. . . . . . .  B ADDR   0080H.3 A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SC2. . . . . . . .  C ADDR   0014H   A   
+SEG7 . . . . . . .  C ADDR   001FH   A   
+SK1. . . . . . . .  C ADDR   002FH   A   
+SK2. . . . . . . .  C ADDR   002DH   A   
+SK3. . . . . . . .  C ADDR   002BH   A   
+START. . . . . . .  C ADDR   000AH   A   
+STOP . . . . . . .  C ADDR   001DH   A   
+ZERUJ. . . . . . .  C ADDR   0008H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 1 ERROR(S)

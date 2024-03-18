@@ -1,0 +1,3 @@
+".\Objects\migajaca dioda.obj" 
+TO ".\Objects\dioda2" 
+PRINT(".\Listings\dioda2.m51") RAMSIZE(256) 

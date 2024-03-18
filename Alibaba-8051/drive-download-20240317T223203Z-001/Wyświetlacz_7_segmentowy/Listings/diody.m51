@@ -1,0 +1,75 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    03/04/2024  10:43:28  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\wyswietlacz.obj TO .\Objects\diody PRINT (.\Listings\diody.m51) RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\wyswietlacz.obj (WYSWIETLACZ)
+
+
+LINK MAP OF MODULE:  .\Objects\diody (WYSWIETLACZ)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0034H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\diody (WYSWIETLACZ)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        WYSWIETLACZ
+  C:001DH         SYMBOL        DELAY
+  B:0080H.3       SYMBOL        DIODA
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  C:0017H         SYMBOL        POROWNAJ
+  C:002AH         SYMBOL        SEG7
+  C:0023H         SYMBOL        SK1
+  C:0021H         SYMBOL        SK2
+  C:001FH         SYMBOL        SK3
+  C:000CH         SYMBOL        START
+  C:001CH         SYMBOL        WYJDZ
+  C:0000H         LINE#         3
+  C:0003H         LINE#         4
+  C:0005H         LINE#         5
+  C:0008H         LINE#         6
+  C:000AH         LINE#         7
+  C:000CH         LINE#         9
+  C:000DH         LINE#         10
+  C:000EH         LINE#         11
+  C:0010H         LINE#         12
+  C:0012H         LINE#         13
+  C:0013H         LINE#         14
+  C:0015H         LINE#         15
+  C:0017H         LINE#         17
+  C:001AH         LINE#         18
+  C:001CH         LINE#         20
+  C:001DH         LINE#         22
+  C:001FH         LINE#         23
+  C:0021H         LINE#         24
+  C:0023H         LINE#         25
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2024  10:43:28  PAGE 2
+
+
+  C:0025H         LINE#         26
+  C:0027H         LINE#         27
+  C:0029H         LINE#         28
+  -------         ENDMOD        WYSWIETLACZ
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0034H BYTE ( 2%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=52
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

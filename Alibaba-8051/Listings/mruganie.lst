@@ -1,0 +1,46 @@
+A51 MACRO ASSEMBLER  MRUGANIE                                                             03/04/2024 09:42:53 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\mruganie.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE mruganie.a51 SET(SMALL) DEBUG PRINT(.\Listings\mruganie.lst) OBJECT(.\O
+                      bjects\mruganie.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0083                 1     dioda   bit P0.3
+0000                   2             org     0h
+0000 7580FF            3                     mov P0,#0xff
+0003 B283              4     start:  cpl dioda
+0005 1109              5                     call delay
+0007 80FA              6                     jmp start
+                       7                     
+0009 7D05              8     delay:  mov R5,#5
+000B 7EFF              9     sk3:    mov R6,#255
+000D 7FFF             10     sk2:    mov R7,#255             
+000F DFFE             11     sk1:    djnz R7,sk1
+0011 DEFA             12                     djnz R6,sk2
+0013 DDF6             13                     djnz R5,sk3
+0015 22               14                     ret
+                      15                     end
+A51 MACRO ASSEMBLER  MRUGANIE                                                             03/04/2024 09:42:53 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0009H   A   
+DIODA. . . . . . .  B ADDR   0080H.3 A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+SK1. . . . . . . .  C ADDR   000FH   A   
+SK2. . . . . . . .  C ADDR   000DH   A   
+SK3. . . . . . . .  C ADDR   000BH   A   
+START. . . . . . .  C ADDR   0003H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,3 @@
+".\Objects\diody.obj" 
+TO ".\Objects\diody" 
+PRINT(".\Listings\diody.m51") RAMSIZE(256) 

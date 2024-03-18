@@ -12,6 +12,7 @@ int wyszukiwanie_min(int t[], int n);
 int wyszukiwanie_max(int t[], int n);
 bool znajdz(int t[], int n, int szukana);
 void selectionSort(int *t, int n);
+void displayarray_1(int t[], int n);
 //bool wysz_bin(int t[], int n, int szukana);
 
 int main()
@@ -20,9 +21,9 @@ int main()
 	bool znaleziono;
 	cout<<"Jaki rozmiar tablicy? ";
 	cin>>n;
-	tab=new int[n];
+	tab=new int[n+1];	//because we want to start from index 1 to n for selection sort for some reason xd uvu ;_; ._. :3 XwX
 	srand(time(NULL));
-	for (i=0; i<n; i++)
+	for (i=1; i<n; i++)	//tu poprawki
 	{
 	/*
 		cout<<"Podaj element o ind. "<<i<<": ";
@@ -38,23 +39,15 @@ int main()
 	klawisz2();
 	
 	//ponizej badany algorytm
-	for(nr=1; nr<n; nr++)	//opt(n^2) ocz(n^2) pes(n^2)
-	{
-		min=t[nr];
-		imin=nr;
-		for(i=nr+1; i<=n; i++)
-		{
-			if(t[i]<min)
-			{
-				min=t[i];
-				imin=i;
-			}
-		}
-		t[imin]=t[nr];
-		t[nr]=min;
-	}
+	cout<<"PRZED SORTOWANIEM"<<endl;
+	displayarray_1(tab, n);
+	cout<<endl<<endl;
+	selectionSort(tab, n);
+	cout<<endl<<endl<<"POSORTOWANO"<<endl;
+	displayarray_1(tab, n);
+	cout<<endl<<endl;
 	
-	
+	/*
 	min = wyszukiwanie_min(tab, n);
 	cout<<"Wartosc minimalna = "<<min<<endl;
 	for(i=0; i<n; i++)
@@ -72,7 +65,7 @@ int main()
 	znaleziono = 0;
 	cout<<"Czego szukasz? ";
 	cin>>szukana;
-	
+	*/
 	/*
 	for(i=0; i<n; i++)
 		if(szukana==tab[i])
@@ -81,11 +74,13 @@ int main()
 			znaleziono=1;
 		}
 	*/
+	/*
 	znaleziono=znajdz(tab, n, szukana);
 	if(znajdz(tab, n, szukana))
 		cout<<"Szukana jest w tablicy"<<endl;
 	else
 		cout<<"Niczego nie znaleziono"<<endl;
+	*/
 //	znaleziono=wyszukiwanie_do_1(tab, n, szukana);
 /*	if(wyszukiwanie_do_1(tab, n, szukana))
 		cout<<"Szukana jest w tablicy"<<endl;
@@ -222,4 +217,10 @@ void klawisz2()
 	}
 	getchar();
 	cout<<endl;
+}
+
+void displayarray_1(int t[], int n)
+{
+	for(int i=1; i<n; i++)
+		cout<<t[i]<<" ";
 }

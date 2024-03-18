@@ -1,0 +1,30 @@
+A51 MACRO ASSEMBLER  DIODY                                                                03/04/2024 09:00:28 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\diody.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE diody.a51 SET(SMALL) DEBUG PRINT(.\Listings\diody.lst) OBJECT(.\Objects
+                      \diody.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     org 0h
+0000 758026            2             mov P0,#00100110b
+0003 80FE              3     stop: jmp stop
+                       4               end
+A51 MACRO ASSEMBLER  DIODY                                                                03/04/2024 09:00:28 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+P0 . . . . . . . .  D ADDR   0080H   A   
+STOP . . . . . . .  C ADDR   0003H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
