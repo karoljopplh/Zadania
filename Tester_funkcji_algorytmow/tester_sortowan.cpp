@@ -13,6 +13,7 @@ int wyszukiwanie_max(int t[], int n);
 bool znajdz(int t[], int n, int szukana);
 void selectionSort(int *t, int n);
 void displayarray_1(int t[], int n);
+
 //bool wysz_bin(int t[], int n, int szukana);
 
 int main()
