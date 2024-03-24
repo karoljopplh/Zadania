@@ -3,8 +3,14 @@
 #include <stdio.h>
 #include <windows.h>
 #include <string>
+#include <cmath>
 using namespace std;
-
+/*
+Zaprojektować własną funkcję obliczającą pierwiastki równania kwadratowego. //Do domu :(
+Wykonać w 2 wersjach
+1 wersja rezultaty przez wskazanie pierwiastkiWsk
+2 wersja rezultaty przez referencje pierwiastkiRef
+*/
 void klawisz();
 void klawisz2();
 float obw_prost1(float a, float b);
@@ -16,16 +22,54 @@ int pot(int p, int w);
 void prostokat1(float a, float b, float *ob, float *po);
 void prostokat1Ref(float a, float b, float &ob, float &po);
 void prostokat2(float a, float b, float *ob, float *po, int *error);
-void pierwiastkiWsk
-void pierwiastkiRef
+int pierwiastkiWsk(float a, float b, float c, float *x, float *x1);	//returns error value
+int pierwiastkiRef(float a, float b, float c, float &x, float &x1);	//returns error value
 
 int main() 
 {
-	float bok1, bok2, obwod, pole, pod, w;
-	float *o, *p;
-	int n=0, error;
+	float bok1, bok2, obwod, pole, pod, w, a, b, c;
+	float *o, *p, *x, *x1;
+	int n=0, error, output;
 	
+	x=new float;
+	x1=new float;
 	
+	cout<<"Obliczanie pierwiastkow rownania kwadratowego"<<endl;
+	cout<<"a = ";
+	cin>>a;
+	cout<<"b = ";
+	cin>>b;
+	cout<<"c = ";
+	cin>>c;
+	cout<<endl<<"Funkcja pierwiastkiWsk"<<endl;
+	output=pierwiastkiWsk(a, b, c, x, x1);
+//	cout<<output;
+	switch(output)
+	{
+		case -1:	cout<<"a == 0 Error"<<endl;
+					break;
+		case 0:		cout<<"Zero miejsc zerowych"<<endl;
+					break;
+		case 1:		cout<<"x0 = "<<*x<<endl;
+					break;
+		case 2:		cout<<"x1 = "<<*x<<endl;
+					cout<<"x2 = "<<*x1<<endl;
+	}
+	
+	cout<<endl<<"Funkcja pierwiastkiRef"<<endl;
+	output=pierwiastkiRef(a, b, c, *x, *x1);
+//	cout<<output;
+	switch(output)
+	{
+		case -1:	cout<<"a == 0 Error"<<endl;
+					break;
+		case 0:		cout<<"Zero miejsc zerowych"<<endl;
+					break;
+		case 1:		cout<<"x0 = "<<*x<<endl;
+					break;
+		case 2:		cout<<"x1 = "<<*x<<endl;
+					cout<<"x2 = "<<*x1<<endl;
+	}
 	
 	/*
 	cout<<"Proba nr 1 z wartosciami: 2 i 5"<<endl;
@@ -267,4 +311,44 @@ void prostokat2(float a, float b, float *ob, float *po, int *error)
 		*error -= 1;	//bad a, if a and b are bad then -3
 	*ob=2*(a+b);
 	*po=a*b;
+}
+
+int pierwiastkiWsk(float a, float b, float c, float *x, float *x1)
+{
+	if(a==0)
+		return -1;	//ERROR wrong a
+	float delta = b * b - (4 * a * c); //b*b = pow(b,b)
+	if(delta<0)
+		return 0;	//0 results 
+	if(delta==0)
+	{
+		*x = -b / (2 * a);
+		return 1;	//1 result
+	}
+	else
+	{
+		*x = (-b - sqrt(delta)) / (2 * a);
+		*x1 = (-b + sqrt(delta)) / (2 * a);
+	}
+	return 2;	//2 results
+}
+
+int pierwiastkiRef(float a, float b, float c, float &x, float &x1)
+{
+	if(a==0)
+		return -1;	//ERROR wrong a
+	float delta = b * b - (4 * a * c); //b*b = pow(b,b)
+	if(delta<0)
+		return 0;	//0 results 
+	if(delta==0)
+	{
+		x = -b / (2 * a);
+		return 1;	//1 result
+	}
+	else
+	{
+		x = (-b - sqrt(delta)) / (2 * a);
+		x1 = (-b + sqrt(delta)) / (2 * a);
+		return 2;	//2 results
+	}
 }
