@@ -1,0 +1,70 @@
+A51 MACRO ASSEMBLER  DYNAMIKA                                                             03/25/2024 08:40:25 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\dynamika.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE dynamika.a51 SET(SMALL) DEBUG PRINT(.\Listings\dynamika.lst) OBJECT(.\O
+                      bjects\dynamika.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0080                 1     segmenty equ P0
+  0090                 2     cyfry equ P1
+0000                   3                     org 0h
+0000 800B              4                     jmp start
+000B                   5                     org 0bh
+000B 8024              6                     jmp licznik0
+000D 755002            7     start:  mov 80,#2
+0010 755100            8                     mov 81,#0
+0013 755202            9                     mov 82,#2
+0016 755304           10                     mov 83,#4
+0019 758902           11                     mov TMOD,#00000010b;timer tryb2
+001C D28C             12                     setb TR0
+001E D2A9             13                     setb ET0
+0020 D2AF             14                     setb EA
+0022 7580FF           15                     mov segmenty,#0ffh
+0025 7590FF           16                     mov cyfry,#0ffh
+0028 7850             17                     mov R0,#80
+002A 79FE             18                     mov R1,#11111110b
+002C 900038           19                     mov DPTR,#seg7
+002F                  20     czekaj:
+002F 80FE             21                     jmp czekaj
+                      22                     
+0031                  23     licznik0:
+0031 E6               24                     mov A,@R0
+0032 93               25                     movc A,@A+DPTR
+0033 F580             26                     mov segmenty,A
+0035 8990             27                     mov cyfry,R1
+                      28                     
+                      29                     
+0037 32               30                     reti
+0038 C0F9A4B0         31     seg7:   db 0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xd8,0x00,0x10
+003C 999282D8                
+0040 0010                    
+                      32             end
+A51 MACRO ASSEMBLER  DYNAMIKA                                                             03/25/2024 08:40:25 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CYFRY. . . . . . .  D ADDR   0090H   A   
+CZEKAJ . . . . . .  C ADDR   002FH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+LICZNIK0 . . . . .  C ADDR   0031H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SEG7 . . . . . . .  C ADDR   0038H   A   
+SEGMENTY . . . . .  D ADDR   0080H   A   
+START. . . . . . .  C ADDR   000DH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

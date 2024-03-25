@@ -1,0 +1,76 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    03/25/2024  08:40:25  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\dynamika.obj TO .\Objects\dynamika1 PRINT (.\Listings\dynamika1.m51) RAMSIZE (256)
+>> 
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\dynamika.obj (DYNAMIKA)
+
+
+LINK MAP OF MODULE:  .\Objects\dynamika1 (DYNAMIKA)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0042H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\dynamika1 (DYNAMIKA)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        DYNAMIKA
+  D:0090H         SYMBOL        CYFRY
+  C:002FH         SYMBOL        CZEKAJ
+  B:00A8H.7       SYMBOL        EA
+  B:00A8H.1       SYMBOL        ET0
+  C:0031H         SYMBOL        LICZNIK0
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  C:0038H         SYMBOL        SEG7
+  D:0080H         SYMBOL        SEGMENTY
+  C:000DH         SYMBOL        START
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  C:0000H         LINE#         4
+  C:000BH         LINE#         6
+  C:000DH         LINE#         7
+  C:0010H         LINE#         8
+  C:0013H         LINE#         9
+  C:0016H         LINE#         10
+  C:0019H         LINE#         11
+  C:001CH         LINE#         12
+  C:001EH         LINE#         13
+  C:0020H         LINE#         14
+  C:0022H         LINE#         15
+  C:0025H         LINE#         16
+  C:0028H         LINE#         17
+  C:002AH         LINE#         18
+  C:002CH         LINE#         19
+  C:002FH         LINE#         21
+  C:0031H         LINE#         24
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/25/2024  08:40:25  PAGE 2
+
+
+  C:0032H         LINE#         25
+  C:0033H         LINE#         26
+  C:0035H         LINE#         27
+  C:0037H         LINE#         30
+  -------         ENDMOD        DYNAMIKA
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0039H BYTE ( 2%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=66
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
