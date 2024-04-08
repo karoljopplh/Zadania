@@ -1,0 +1,39 @@
+Insert Sort
+randomowe
+50k - 1,34s
+100k - 5s
+200k - 19,21s
+400k - 1:16,34s
+
+posortowane
+50k - od razu
+100k - od razu
+200k - od razu
+400k - od razu
+
+odwrotnie posortowane
+50k - 2,7s
+100k - 9,7s
+200k - 36,75s
+400k - 2:32,75s
+
+
+
+Selection Sort
+randomowe
+50k - 2,75s
+100k - 10s
+200k - 38,87s
+400k - 2:34s
+
+posortowane
+50k - 2,78s
+100k - 10s
+200k - 39,28s
+400k - 2:39s
+
+odwrotnie posortowane
+50k - 1,50s
+100k - 5,60s
+200k - 22,5s
+400k - 1:28s
