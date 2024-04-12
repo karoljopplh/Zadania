@@ -1,0 +1,57 @@
+A51 MACRO ASSEMBLER  ONE_SECOND_BLINKER                                                   04/11/2024 00:11:03 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\one_second_blinker.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE one_second_blinker.a51 SET(SMALL) DEBUG PRINT(.\Listings\one_second_bli
+                      nker.lst) OBJECT(.\Objects\one_second_blinker.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             org 0000h
+0000 758901            2     main:   mov TMOD,#00000001b     ;Timer0 mode 1
+0003 758C3C            3                     mov TH0,#03Ch   ;50ms timer
+0006 758AB0            4                     mov TL0,#0B0h   ; 0011 1100 1011 0000
+0009 D282              5     start:  setb P0.2
+000B 1113              6                     acall onesec
+000D C282              7                     clr P0.2
+000F 1113              8                     acall onesec
+0011 80F6              9                     sjmp start
+                      10                     
+0013 7F14             11     onesec: mov R7,#20
+0015 111A             12     sec:    acall delay
+0017 DFFC             13                     djnz R7,sec
+0019 22               14                     ret
+                      15                     
+001A D28C             16     delay:  setb TR0        ;Timer0 turned on
+001C 308DFD           17     loop:   jnb TF0,loop
+001F C28C             18                     clr TR0
+0021 C28D             19                     clr TF0
+0023 22               20                     ret
+                      21                     end
+A51 MACRO ASSEMBLER  ONE_SECOND_BLINKER                                                   04/11/2024 00:11:03 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   001AH   A   
+LOOP . . . . . . .  C ADDR   001CH   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+ONESEC . . . . . .  C ADDR   0013H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+SEC. . . . . . . .  C ADDR   0015H   A   
+START. . . . . . .  C ADDR   0009H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

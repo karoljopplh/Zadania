@@ -1,0 +1,50 @@
+A51 MACRO ASSEMBLER  DIFFERENT_BLINKER                                                    04/11/2024 00:11:03 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\different_blinker.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE different_blinker.a51 SET(SMALL) DEBUG PRINT(.\Listings\different_blink
+                      er.lst) OBJECT(.\Objects\different_blinker.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             org 0000h
+0000 758901            2     main:   mov TMOD,#00000001b     ;Timer0 mode 1
+0003 758C3C            3                     mov TH0,#03Ch   ;50ms timer
+0006 758AB0            4                     mov TL0,#0B0h   ; 0011 1100 1011 0000
+0009 D282              5     start:  setb P0.2
+000B 1113              6                     acall delay
+000D C282              7                     clr P0.2
+000F 1113              8                     acall delay
+0011 80F6              9                     sjmp start
+                      10                     
+0013 D28C             11     delay:  setb TR0        ;Timer0 turned on
+0015 308DFD           12     loop:   jnb TF0,loop
+0018 C28C             13                     clr TR0
+001A C28D             14                     clr TF0
+001C 22               15                     ret
+                      16                     end
+A51 MACRO ASSEMBLER  DIFFERENT_BLINKER                                                    04/11/2024 00:11:03 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0013H   A   
+LOOP . . . . . . .  C ADDR   0015H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+START. . . . . . .  C ADDR   0009H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

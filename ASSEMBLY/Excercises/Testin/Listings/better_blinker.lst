@@ -1,0 +1,65 @@
+A51 MACRO ASSEMBLER  BETTER_BLINKER                                                       04/10/2024 19:43:18 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\better_blinker.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE better_blinker.a51 SET(SMALL) DEBUG PRINT(.\Listings\better_blinker.lst
+                      ) OBJECT(.\Objects\better_blinker.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             org 00h
+0000 758000            2     start:  mov P0,#00h
+0003 D294              3                     setb P1.4
+0005 C294              4                     clr P1.4
+0007 1114              5                     acall OneSec
+0009 7580FF            6                     mov P0,#0FFh
+000C D294              7                     setb P1.4
+000E C294              8                     clr P1.4
+0010 1114              9                     acall OneSec
+0012 80EC             10                     jmp start
+                      11                     
+0014 7F14             12     OneSec: mov R7,#14h     ;20*50ms is 1s 
+0016 111B             13     back:   acall timer1
+0018 DFFC             14                     djnz R7,back
+001A 22               15                     ret
+                      16                     
+001B 758901           17     timer1: mov TMOD,#00000001b
+001E 758C3C           18     jump:   mov TH0,#03ch   ;50 miliseconds
+0021 758AB0           19                     mov TL0,#0b0h
+                      20                     
+0024 D28C             21                     setb TR0
+0026 308DFD           22     loop:   jnb TF0,loop
+0029 C28D             23                     clr TF0
+002B C28C             24                     clr TR0
+002D 22               25                     ret
+                      26                     
+                      27                     end
+                                                     
+A51 MACRO ASSEMBLER  BETTER_BLINKER                                                       04/10/2024 19:43:18 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BACK . . . . . . .  C ADDR   0016H   A   
+JUMP . . . . . . .  C ADDR   001EH   A   
+LOOP . . . . . . .  C ADDR   0026H   A   
+ONESEC . . . . . .  C ADDR   0014H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+START. . . . . . .  C ADDR   0000H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER1 . . . . . .  C ADDR   001BH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

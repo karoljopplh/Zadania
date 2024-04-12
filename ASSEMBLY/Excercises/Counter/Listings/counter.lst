@@ -1,0 +1,61 @@
+A51 MACRO ASSEMBLER  COUNTER                                                              04/11/2024 14:00:27 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\counter.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE counter.a51 SET(SMALL) DEBUG PRINT(.\Listings\counter.lst) OBJECT(.\Obj
+                      ects\counter.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             org 0000h
+  0080                 2     led equ P0
+0000 758901            3     main:   mov TMOD,#00000001b
+0003 758C3C            4                     mov TH0,#03Ch
+0006 758AB0            5                     mov TL0,#0B0h           
+0009 C293              6                     clr P1.3
+000B C292              7                     clr P1.2
+000D 7FFF              8     start:  mov R7,#0FFh
+000F 8F80              9     mig:    mov led,R7
+0011 1117             10                     acall licznik0
+0013 DFFA             11                     djnz R7,mig
+0015 80F6             12                     jmp start
+                      13                     
+0017 D28C             14     licznik0:       setb TR0
+0019 308DFD           15     monitor:        jnb TF0,monitor
+001C C28C             16                             clr TR0
+001E C28D             17                             clr TF0
+0020 22               18                             ret
+0021 C0F9A4B0         19     seg7:           db 11000000b,11111001b,10100100b,10110000b,10011001b,10010010b,10000010b,11
+                             011000b,10000000b,10010000b
+0025 999282D8                
+0029 8090                    
+                      20                     end
+A51 MACRO ASSEMBLER  COUNTER                                                              04/11/2024 14:00:27 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+LED. . . . . . . .  D ADDR   0080H   A   
+LICZNIK0 . . . . .  C ADDR   0017H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+MIG. . . . . . . .  C ADDR   000FH   A   
+MONITOR. . . . . .  C ADDR   0019H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SEG7 . . . . . . .  C ADDR   0021H   A   
+START. . . . . . .  C ADDR   000DH   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

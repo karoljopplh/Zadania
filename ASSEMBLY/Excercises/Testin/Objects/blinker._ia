@@ -1,0 +1,1 @@
+"blinker.a51" SET (SMALL) DEBUG PRINT(.\Listings\blinker.lst) OBJECT(.\Objects\blinker.obj) EP

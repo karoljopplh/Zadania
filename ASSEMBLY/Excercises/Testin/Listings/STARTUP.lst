@@ -1,0 +1,36 @@
+A51 MACRO ASSEMBLER  STARTUP                                                              04/10/2024 11:54:21 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\STARTUP.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE STARTUP.A51 SET(SMALL) DEBUG PRINT(.\Listings\STARTUP.lst) OBJECT(.\Obj
+                      ects\STARTUP.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             org 0h
+                       2                     ;mov P0,#01010101b
+                       3                     ;mov P0,#11111101b
+                       4                     ;mov P0,#0Fh ;00001111
+0000 740F              5                     mov A,#0Fh
+0002 F580              6                     mov P0,A
+                       7                     ;clr P0.0
+                       8                     ;setb P0.1
+0004 80FE              9     stop:   jmp stop
+                      10                     end
+A51 MACRO ASSEMBLER  STARTUP                                                              04/10/2024 11:54:21 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+P0 . . . . . . . .  D ADDR   0080H   A   
+STOP . . . . . . .  C ADDR   0004H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

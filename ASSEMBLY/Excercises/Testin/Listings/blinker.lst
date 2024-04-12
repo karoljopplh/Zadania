@@ -1,0 +1,44 @@
+A51 MACRO ASSEMBLER  BLINKER                                                              04/10/2024 16:13:53 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\blinker.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE blinker.a51 SET(SMALL) DEBUG PRINT(.\Listings\blinker.lst) OBJECT(.\Obj
+                      ects\blinker.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             org 00h
+0000 758000            2     loop:   mov P0,#00h
+0003 110C              3                     acall delay
+0005 7580FF            4                     mov P0,#0FFh
+0008 110C              5                     acall delay
+000A 80F4              6                     jmp loop
+                       7                     
+000C 7FFF              8     delay:  mov R7,#255
+000E 7EFF              9     d2:             mov R6,#255
+0010 DEFE             10     d1:             djnz R6,d1
+0012 DFFA             11                     djnz R7,d2
+0014 22               12                     ret
+0015 80FE             13     stop: jmp stop
+                      14             end
+A51 MACRO ASSEMBLER  BLINKER                                                              04/10/2024 16:13:53 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+D1 . . . . . . . .  C ADDR   0010H   A   
+D2 . . . . . . . .  C ADDR   000EH   A   
+DELAY. . . . . . .  C ADDR   000CH   A   
+LOOP . . . . . . .  C ADDR   0000H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+STOP . . . . . . .  C ADDR   0015H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
