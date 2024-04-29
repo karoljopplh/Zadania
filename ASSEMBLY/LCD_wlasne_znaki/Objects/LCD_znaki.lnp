@@ -1,0 +1,3 @@
+".\Objects\LCD_znaki.obj" 
+TO ".\Objects\LCD_znaki" 
+PRINT(".\Listings\LCD_znaki.m51") RAMSIZE(256) 

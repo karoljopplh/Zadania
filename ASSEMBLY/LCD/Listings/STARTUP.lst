@@ -1,0 +1,291 @@
+A51 MACRO ASSEMBLER  STARTUP                                                              04/22/2024 10:44:27 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\STARTUP.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE STARTUP.A51 SET(SMALL) DEBUG PRINT(.\Listings\STARTUP.lst) OBJECT(.\Obj
+                      ects\STARTUP.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0080                 1     magistrala equ P0
+  0090                 2     E bit P1.0
+  0092                 3     RS bit P1.2
+  0091                 4     RW bit P1.1
+  00B2                 5     przycisk bit P3.2
+0000                   6             org 0h
+0000 801B              7                     jmp start
+000B                   8             org 0bh
+000B 0194              9                     jmp licznik0
+001B                  10             org     1bh
+001B 01B1             11                     jmp licznik1
+                      12     
+                      13     
+                      14     
+                      15     
+                      16     
+                      17     
+                      18     
+                      19     
+                      20     
+                      21     
+                      22     
+                      23     
+                      24     
+001D C291             25     start:  clr RW 
+001F C292             26                     clr RS 
+0021 7E38             27                     mov R6,#38h 
+0023 314F             28                     call LCDzapis
+0025 7E06             29                     mov R6,#6h 
+0027 314F             30                     call LCDzapis
+0029 7E0F             31                     mov R6,#0Fh 
+002B 314F             32                     call LCDzapis
+002D 7E01             33                     mov R6,#1h 
+002F 314F             34                     call LCDzapis
+0031 313F             35                     call DelayL
+0033                  36     skok:   
+0033 755032           37                     mov 80,#32h
+0036 755130           38                     mov 81,#30h
+0039 755232           39                     mov 82,#32h
+003C 755334           40                     mov 83,#34h
+003F 117B             41                     call czas
+0041 7A00             42                     mov R2,#0
+0043 7800             43                     mov R0,#0 
+0045 758901           44                     mov TMOD,#00000001b
+0048 758C00           45                     mov TH0,#0h
+004B 758A00           46                     mov TL0,#0h
+004E 758D00           47                     mov TH1,#0h
+0051 758B00           48                     mov TL1,#0h
+0054 D28C             49                     setb TR0
+0056 D28E             50                     setb TR1
+0058 D2A9             51                     setb ET0
+005A D2AB             52                     setb ET1
+005C D2AF             53                     setb EA
+                      54                     
+005E B802FD           55     stop:   cjne R0,#2,stop
+0061 7803             56                     mov R0,#3
+0063 0551             57                     inc 81
+A51 MACRO ASSEMBLER  STARTUP                                                              04/22/2024 10:44:27 PAGE     2
+
+0065 A951             58                     mov R1,81
+0067 B93A0D           59                     cjne R1,#3Ah,show
+006A 755130           60                     mov 81,#'0'
+006D 0550             61                     inc 80
+006F A950             62                     mov R1,80
+0071 B93A03           63                     cjne R1,#3Ah,show
+0074 755030           64                     mov 80,#'0'
+0077                  65     show:   
+0077 117B             66                     call czas
+0079 80E3             67                     jmp stop
+                      68     
+                      69     
+                      70     
+                      71     
+                      72     
+                      73     
+                      74     
+007B C292             75     czas:   clr RS
+007D 7E80             76                     mov R6,#80h
+007F 314F             77                     call LCDzapis
+0081 D292             78                     setb RS
+0083 AE50             79                     mov R6,80
+0085 314F             80                     call LCDzapis
+0087 AE51             81                     mov R6,81
+0089 314F             82                     call LCDzapis
+008B AE52             83                     mov R6,82
+008D 314F             84                     call LCDzapis
+008F AE53             85                     mov R6,83
+0091 314F             86                     call LCDzapis
+0093 22               87                     ret
+0094                  88     licznik0:
+0094 0A               89                     inc R2
+0095 BA0E18           90                     cjne R2,#14,wyjdz
+0098 7A00             91                     mov R2,#0
+009A 0553             92                     inc 83
+009C A953             93                     mov R1,83
+009E B93A0D           94                     cjne R1,#3ah, pokaz
+00A1 755330           95                     mov 83,#'0'
+00A4 0552             96                     inc 82
+00A6 A952             97                     mov R1,82
+00A8 B93A03           98                     cjne R1, #3ah, pokaz
+00AB 755230           99                     mov 82,#'0'
+                     100                     
+00AE 117B            101     pokaz:  call czas
+00B0                 102     wyjdz:
+00B0 32              103                     reti
+                     104     
+00B1                 105     licznik1:
+00B1 20B20E          106                     jb przycisk,nienacisniety
+00B4 B80004          107                     cjne R0,#0,jeden
+00B7 7801            108                     mov R0,#1
+00B9 8013            109                     jmp koniec
+                     110                     
+00BB B80110          111     jeden:  cjne R0,#1,koniec
+00BE 7802            112                     mov R0,#2
+00C0 800C            113                     jmp koniec
+                     114     
+00C2                 115     nienacisniety:
+00C2 B80304          116                     cjne R0,#3,cztery
+00C5 7804            117                     mov R0,#4
+00C7 8005            118                     jmp koniec
+00C9 B80402          119     cztery: cjne R0,#4,koniec
+00CC 7800            120                     mov R0,#0
+00CE                 121     koniec:
+00CE 32              122                     reti
+                     123     
+A51 MACRO ASSEMBLER  STARTUP                                                              04/22/2024 10:44:27 PAGE     3
+
+                     124     
+                     125     
+                     126     
+                     127     
+                     128     
+                     129     
+                     130             
+                     131                     ;mov R6,#0C1h
+                     132                     ;setb RS//dane kody ASCII
+                     133                     ;call LCDzapis
+                     134                     ;mov R6,#'W'
+                     135                     ;call LCDzapis
+                     136                     ;mov R6,#'S'
+                     137                     ;call LCDzapis
+                     138                     ;mov R6,#'T'
+                     139                     ;call LCDzapis
+                     140                     ;mov R6,#'I'
+                     141                     ;call LCDzapis
+                     142                     ;mov DPTR,#Napis1
+                     143                     ;call Tekst
+                     144                     
+00CF 57535449        145     Napis:  db "WSTI Katowice$"
+00D3 204B6174                
+00D7 6F776963                
+00DB 6524                    
+00DD 61616161        146     Napis1: db "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbcccccccccccccccc$"
+00E1 61616161                
+00E5 61616161                
+00E9 61616161                
+00ED 62626262                
+00F1 62626262                
+00F5 62626262                
+00F9 62626262                
+00FD 63636363                
+0101 63636363                
+0105 63636363                
+0109 63636363                
+010D 24                      
+                     147     
+010E D292            148     Tekst:  setb RS
+0110 7B00            149                     mov R3,#0
+0112 EB              150     tutaj:  mov A,R3
+0113 93              151                     movc A,@A+DPTR
+0114 FE              152                     mov R6,A
+0115 BE2402          153                     cjne R6,#'$',wyswietl
+0118 801F            154                     jmp omin
+011A                 155     wyswietl:
+011A 3148            156             call delayM
+011C 314F            157             call LCDzapis
+011E 0B              158             inc R3
+011F BB200A          159             cjne R3,#32,sk5
+0122 C292            160             clr RS
+0124 7E80            161             mov R6,#80h
+0126 314F            162             call LCDzapis
+0128 D292            163             setb RS
+012A 80E6            164             jmp tutaj
+012C BB10E3          165     sk5:cjne R3,#16,tutaj
+012F C292            166             clr RS
+0131 7EC0            167             mov R6,#0C0h
+0133 314F            168             call LCDzapis
+0135 D292            169             setb RS
+0137 80D9            170             jmp tutaj
+                     171             
+0139                 172     omin:
+0139 22              173             ret
+                     174                     
+A51 MACRO ASSEMBLER  STARTUP                                                              04/22/2024 10:44:27 PAGE     4
+
+013A                 175     delay:
+013A 7F05            176             mov R7,#5
+013C DFFE            177     sk1:djnz R7,sk1
+013E 22              178             ret
+                     179             
+013F                 180     delayL: 
+013F 7CFF            181             mov R4,#0ffh
+0141 7DFF            182     sk3:mov R5,#0ffh
+0143 DDFE            183     sk2:djnz R5,sk2
+0145 DCFA            184             djnz R4,sk3
+0147 22              185             ret
+                     186             
+0148                 187     delayM: 
+0148 7A02            188                     mov R2,#2
+014A 313F            189     sk4:    call delayL
+014C DAFC            190                     djnz R2,sk4
+014E 22              191                     ret
+                     192             
+014F                 193     LCDzapis:
+014F 8E80            194             mov magistrala,R6
+0151 D290            195             setb E
+0153 313A            196             call delay
+0155 C290            197             clr E
+0157 313A            198             call delay
+0159 22              199             ret
+                     200             end
+A51 MACRO ASSEMBLER  STARTUP                                                              04/22/2024 10:44:27 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CZAS . . . . . . .  C ADDR   007BH   A   
+CZTERY . . . . . .  C ADDR   00C9H   A   
+DELAY. . . . . . .  C ADDR   013AH   A   
+DELAYL . . . . . .  C ADDR   013FH   A   
+DELAYM . . . . . .  C ADDR   0148H   A   
+E. . . . . . . . .  B ADDR   0090H.0 A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+ET1. . . . . . . .  B ADDR   00A8H.3 A   
+JEDEN. . . . . . .  C ADDR   00BBH   A   
+KONIEC . . . . . .  C ADDR   00CEH   A   
+LCDZAPIS . . . . .  C ADDR   014FH   A   
+LICZNIK0 . . . . .  C ADDR   0094H   A   
+LICZNIK1 . . . . .  C ADDR   00B1H   A   
+MAGISTRALA . . . .  D ADDR   0080H   A   
+NAPIS. . . . . . .  C ADDR   00CFH   A   
+NAPIS1 . . . . . .  C ADDR   00DDH   A   
+NIENACISNIETY. . .  C ADDR   00C2H   A   
+OMIN . . . . . . .  C ADDR   0139H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+POKAZ. . . . . . .  C ADDR   00AEH   A   
+PRZYCISK . . . . .  B ADDR   00B0H.2 A   
+RS . . . . . . . .  B ADDR   0090H.2 A   
+RW . . . . . . . .  B ADDR   0090H.1 A   
+SHOW . . . . . . .  C ADDR   0077H   A   
+SK1. . . . . . . .  C ADDR   013CH   A   
+SK2. . . . . . . .  C ADDR   0143H   A   
+SK3. . . . . . . .  C ADDR   0141H   A   
+SK4. . . . . . . .  C ADDR   014AH   A   
+SK5. . . . . . . .  C ADDR   012CH   A   
+SKOK . . . . . . .  C ADDR   0033H   A   
+START. . . . . . .  C ADDR   001DH   A   
+STOP . . . . . . .  C ADDR   005EH   A   
+TEKST. . . . . . .  C ADDR   010EH   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+TUTAJ. . . . . . .  C ADDR   0112H   A   
+WYJDZ. . . . . . .  C ADDR   00B0H   A   
+WYSWIETL . . . . .  C ADDR   011AH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
