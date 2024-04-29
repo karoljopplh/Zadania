@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 08:44:46 PAGE     1
+A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 10:55:11 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -18,144 +18,228 @@ LOC  OBJ            LINE     SOURCE
 0002 C291              8     start:  clr RW 
 0004 C292              9                     clr RS 
 0006 7E38             10                     mov R6,#38h 
-0008 11B5             11                     call LCDzapis
+0008 3107             11                     call LCDzapis
 000A 7E06             12                     mov R6,#6h 
-000C 11B5             13                     call LCDzapis
+000C 3107             13                     call LCDzapis
 000E 7E0C             14                     mov R6,#0Ch 
-0010 11B5             15                     call LCDzapis
+0010 3107             15                     call LCDzapis
 0012 7E01             16                     mov R6,#1h 
-0014 11B5             17                     call LCDzapis
-0016 11A5             18                     call DelayL
-0018 C292             19                     clr RS
-001A 7E80             20                     mov R6,#80h
-001C 11B5             21                     call LCDzapis
-001E D292             22                     setb RS
-0020 7E57             23                     mov R6,#'W'
-0022 11B5             24                     call LCDzapis
-                      25     
-0024                  26     stop:   
-0024 80FE             27                     jmp stop
-                      28     
-                      29     
-                      30     
-                      31     
-                      32     
+0014 3107             17                     call LCDzapis
+0016 11F7             18                     call DelayL
+0018 7901             19                     mov R1,#1 
+001A 90013B           20                     mov DPTR,#znak1
+001D 3112             21                     call LCDznak
+001F 7902             22                     mov R1,#2 
+0021 900143           23                     mov DPTR,#znak2
+0024 3112             24                     call LCDznak
+0026 7903             25                     mov R1,#3 
+0028 90014B           26                     mov DPTR,#znak3
+002B 3112             27                     call LCDznak
+002D C292             28                     clr RS
+002F 7E80             29                     mov R6,#80h
+0031 3107             30                     call LCDzapis
+0033 D292             31                     setb RS
+                      32                     
                       33     
                       34     
-0026 75F000           35     increm: mov B,#0h
-0029 7905             36                     mov R1,#5
-002B E9               37                     mov A,R1
-002C 23               38                     rl A
-002D 23               39                     rl A
-002E 23               40                     rl A
-002F 2440             41                     add A,#40h
-0031 F9               42                     mov R1,A
-0032 C292             43                     clr RS
-                      44                     
-0034 22               45                     ret
-                      46     
-                      47     
-                      48     
+                      35     
+                      36     
+                      37     
+                      38     
+                      39     
+                      40     
+                      41     
+0035 900153           42                     mov DPTR,#napisek
+0038 1142             43                     call LCDnapis
+003A C292             44                     clr RS
+003C 7E1C             45                     mov R6,#1Ch
+003E 3107             46                     call LCDzapis
+0040                  47     stop:   
+0040 80FE             48                     jmp stop
                       49     
-                      50     
-                      51     
-                      52     
-                      53     
-                      54     
-                      55             
-                      56                     ;mov R6,#0C1h
-                      57                     ;setb RS//dane kody ASCII
-A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 08:44:46 PAGE     2
+0042                  50     LCDnapis:
+0042 D292             51                     setb RS
+0044 7800             52                     mov R0,#0
+0046                  53     jump:   ;setb RS
+0046 B81008           54                     cjne R0,#16,skuk
+0049 C292             55                     clr RS
+004B 7EC0             56                     mov R6,#0C0h
+004D 3107             57                     call LCDzapis
+A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 10:55:11 PAGE     2
 
-                      58                     ;call LCDzapis
-                      59                     ;mov R6,#'W'
-                      60                     ;call LCDzapis
-                      61                     ;mov R6,#'S'
-                      62                     ;call LCDzapis
-                      63                     ;mov R6,#'T'
-                      64                     ;call LCDzapis
-                      65                     ;mov R6,#'I'
-                      66                     ;call LCDzapis
-                      67                     ;mov DPTR,#Napis1
-                      68                     ;call Tekst
-                      69                     
-0035 57535449         70     Napis:  db "WSTI Katowice$"
-0039 204B6174                
-003D 6F776963                
-0041 6524                    
-0043 61616161         71     Napis1: db "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbcccccccccccccccc$"
-0047 61616161                
-004B 61616161                
-004F 61616161                
-0053 62626262                
-0057 62626262                
-005B 62626262                
-005F 62626262                
-0063 63636363                
-0067 63636363                
-006B 63636363                
-006F 63636363                
-0073 24                      
-                      72     
-0074 D292             73     Tekst:  setb RS
-0076 7B00             74                     mov R3,#0
-0078 EB               75     tutaj:  mov A,R3
-0079 93               76                     movc A,@A+DPTR
-007A FE               77                     mov R6,A
-007B BE2402           78                     cjne R6,#'$',wyswietl
-007E 801F             79                     jmp omin
-0080                  80     wyswietl:
-0080 11AE             81             call delayM
-0082 11B5             82             call LCDzapis
-0084 0B               83             inc R3
-0085 BB200A           84             cjne R3,#32,sk5
-0088 C292             85             clr RS
-008A 7E80             86             mov R6,#80h
-008C 11B5             87             call LCDzapis
-008E D292             88             setb RS
-0090 80E6             89             jmp tutaj
-0092 BB10E3           90     sk5:cjne R3,#16,tutaj
-0095 C292             91             clr RS
-0097 7EC0             92             mov R6,#0C0h
-0099 11B5             93             call LCDzapis
-009B D292             94             setb RS
-009D 80D9             95             jmp tutaj
+004F D292             58                     setb RS
+0051 E8               59     skuk:   mov A,R0
+0052 93               60                     movc A,@A+DPTR
+0053 B42402           61                     cjne A,#'$',pokaz
+0056 8019             62                     jmp wyjdz
+0058 B4B904           63     pokaz:  cjne A,#'¹',omin2
+005B 7401             64                     mov A,#1
+005D 800C             65                     jmp omin0
+005F                  66     omin2:  
+005F B4B304           67                     cjne A,#'³',omin1
+0062 7402             68                     mov A,#2
+0064 8005             69                     jmp omin0
+0066                  70     omin1:  
+0066 B4EA02           71                     cjne A,#'ê',omin0
+0069 7403             72                     mov A,#3
+006B                  73     omin0:
+006B FE               74                     mov R6,A
+006C 3107             75                     call LCDzapis
+006E 08               76     jumpin: inc R0
+006F 80D5             77                     jmp jump
+0071 22               78     wyjdz:  ret
+                      79     
+                      80     
+                      81     
+                      82     
+                      83     
+                      84     
+                      85     
+                      86     
+                      87     
+                      88     
+                      89     
+                      90     
+                      91     
+                      92     
+                      93     
+                      94     
+                      95     
                       96             
-009F                  97     omin:
-009F 22               98             ret
-                      99                     
-00A0                 100     delay:
-00A0 7F05            101             mov R7,#5
-00A2 DFFE            102     sk1:djnz R7,sk1
-00A4 22              103             ret
-                     104             
-00A5                 105     delayL: 
-00A5 7CFF            106             mov R4,#0ffh
-00A7 7DFF            107     sk3:mov R5,#0ffh
-00A9 DDFE            108     sk2:djnz R5,sk2
-A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 08:44:46 PAGE     3
+0072 7EC1             97                     mov R6,#0C1h
+0074 D292             98                     setb RS 
+                      99                     ;call LCDzapis
+                     100                     ;mov R6,#'W'
+                     101                     ;call LCDzapis
+                     102                     ;mov R6,#'S'
+                     103                     ;call LCDzapis
+                     104                     ;mov R6,#'T'
+                     105                     ;call LCDzapis
+                     106                     ;mov R6,#'I'
+                     107                     ;call LCDzapis
+0076 900153          108                     mov DPTR,#napisek
+0079 11BA            109                     call Tekst
+                     110                     
+007B 57535449        111     Napis:  db "WSTI Katowice$"
+007F 204B6174                
+0083 6F776963                
+0087 6524                    
+0089 61616161        112     Napis1: db "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbcccccccccccccccc$"
+008D 61616161                
+0091 61616161                
+0095 61616161                
+0099 62626262                
+009D 62626262                
+00A1 62626262                
+00A5 62626262                
+00A9 63636363                
+A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 10:55:11 PAGE     3
 
-00AB DCFA            109             djnz R4,sk3
-00AD 22              110             ret
-                     111             
-00AE                 112     delayM: 
-00AE 7A02            113                     mov R2,#2
-00B0 11A5            114     sk4:    call delayL
-00B2 DAFC            115                     djnz R2,sk4
-00B4 22              116                     ret
-                     117             
-00B5                 118     LCDzapis:
-00B5 8E80            119             mov magistrala,R6
-00B7 D290            120             setb E
-00B9 11A0            121             call delay
-00BB C290            122             clr E
-00BD 11A0            123             call delay
-00BF 22              124             ret
-                     125             
-00C0 00001F15        126     znak0:  db 0h, 0h, 1Fh, 15h, 1Fh, 15h, 1Fh, 0h
-00C4 1F151F00                
-                     127             end
-A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 08:44:46 PAGE     4
+00AD 63636363                
+00B1 63636363                
+00B5 63636363                
+00B9 24                      
+                     113     
+00BA D292            114     Tekst:  setb RS
+00BC 7B00            115                     mov R3,#0
+00BE EB              116     tutaj:  mov A,R3
+00BF 93              117                     movc A,@A+DPTR
+00C0 FE              118                     mov R6,A
+00C1 BEB908          119                     cjne R6,#'¹',wyswietla
+00C4 BEB309          120                     cjne R6,#'³',wyswietll
+00C7 BE2408          121                     cjne R6,#'$',wyswietl
+00CA 8025            122                     jmp omin
+00CC                 123     wyswietla:
+00CC 7E01            124                     mov R6,#1
+00CE 8002            125                     jmp wyswietl
+00D0                 126     wyswietll:
+00D0 7E02            127                     mov R6,#2
+00D2                 128     wyswietl:
+00D2 3100            129             call delayM
+00D4 3107            130             call LCDzapis
+00D6 0B              131             inc R3
+00D7 BB200A          132             cjne R3,#32,sk5
+00DA C292            133             clr RS
+00DC 7E80            134             mov R6,#80h
+00DE 3107            135             call LCDzapis
+00E0 D292            136             setb RS
+00E2 80DA            137             jmp tutaj
+00E4 BB10D7          138     sk5:cjne R3,#16,tutaj
+00E7 C292            139             clr RS
+00E9 7EC0            140             mov R6,#0C0h
+00EB 3107            141             call LCDzapis
+00ED D292            142             setb RS
+00EF 80CD            143             jmp tutaj       
+00F1                 144     omin:
+00F1 22              145             ret
+                     146                     
+00F2                 147     delay:
+00F2 7F05            148             mov R7,#5
+00F4 DFFE            149     sk1:djnz R7,sk1
+00F6 22              150             ret
+                     151             
+00F7                 152     delayL: 
+00F7 7CFF            153             mov R4,#0ffh
+00F9 7DFF            154     sk3:mov R5,#0ffh
+00FB DDFE            155     sk2:djnz R5,sk2
+00FD DCFA            156             djnz R4,sk3
+00FF 22              157             ret
+                     158             
+0100                 159     delayM: 
+0100 7A02            160                     mov R2,#2
+0102 11F7            161     sk4:    call delayL
+0104 DAFC            162                     djnz R2,sk4
+0106 22              163                     ret
+                     164             
+0107                 165     LCDzapis:
+0107 8E80            166             mov magistrala,R6
+0109 D290            167             setb E
+010B 11F2            168             call delay
+010D C290            169             clr E
+010F 11F2            170             call delay
+0111 22              171             ret
+                     172     
+0112                 173     LCDznak:
+0112 75F000          174                     mov B,#0
+A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 10:55:11 PAGE     4
+
+0115 E9              175                     mov A,R1
+0116 23              176                     rl A
+0117 23              177                     rl A
+0118 23              178                     rl A
+0119 2440            179                     add A,#40h
+011B F9              180                     mov R1,A
+011C C292            181     powrot: clr RS
+011E E9              182                     mov A,R1
+011F FE              183                     mov R6,A
+0120 3107            184                     call LCDzapis
+0122 D292            185                     setb RS
+0124 E5F0            186                     mov A,B
+0126 93              187                     movc A,@A+DPTR
+0127 FE              188                     mov R6,A
+0128 3107            189                     call LCDzapis
+012A 05F0            190                     inc B
+012C 09              191                     inc R1
+012D E5F0            192                     mov A,B
+012F B408EA          193                     cjne A,#8,powrot
+0132 22              194                     ret
+                     195                     
+0133 00001F15        196     znak0:  db 0h, 0h, 1Fh, 15h, 1Fh, 15h, 1Fh, 0h
+0137 1F151F00                
+013B 00000E01        197     znak1:  db 0h, 0h, 0Eh, 01h, 0Fh, 11h, 0Fh, 02h
+013F 0F110F02                
+0143 0C040604        198     znak2:  db 0Ch, 04h, 06h, 04h, 0Ch, 04h, 0Eh, 0h
+0147 0C040E00                
+014B 00000E11        199     znak3:  db 0h, 0h, 0Eh, 11h, 1Fh, 10h, 0Eh, 04h
+014F 1F100E04                
+0153 204B7769        200     napisek:        db " Kwiaty na ³¹ce zwiêd³y$"
+0157 61747920                
+015B 6E6120B3                
+015F B9636520                
+0163 7A7769EA                
+0167 64B37924                
+                     201             end
+A51 MACRO ASSEMBLER  LCD_ZNAKI                                                            04/29/2024 10:55:11 PAGE     5
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -164,31 +248,47 @@ SYMBOL TABLE LISTING
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 B. . . . . . . . .  D ADDR   00F0H   A   
-DELAY. . . . . . .  C ADDR   00A0H   A   
-DELAYL . . . . . .  C ADDR   00A5H   A   
-DELAYM . . . . . .  C ADDR   00AEH   A   
+DELAY. . . . . . .  C ADDR   00F2H   A   
+DELAYL . . . . . .  C ADDR   00F7H   A   
+DELAYM . . . . . .  C ADDR   0100H   A   
 E. . . . . . . . .  B ADDR   0090H.0 A   
-INCREM . . . . . .  C ADDR   0026H   A   
-LCDZAPIS . . . . .  C ADDR   00B5H   A   
+JUMP . . . . . . .  C ADDR   0046H   A   
+JUMPIN . . . . . .  C ADDR   006EH   A   
+LCDNAPIS . . . . .  C ADDR   0042H   A   
+LCDZAPIS . . . . .  C ADDR   0107H   A   
+LCDZNAK. . . . . .  C ADDR   0112H   A   
 MAGISTRALA . . . .  D ADDR   0080H   A   
-NAPIS. . . . . . .  C ADDR   0035H   A   
-NAPIS1 . . . . . .  C ADDR   0043H   A   
-OMIN . . . . . . .  C ADDR   009FH   A   
+NAPIS. . . . . . .  C ADDR   007BH   A   
+NAPIS1 . . . . . .  C ADDR   0089H   A   
+NAPISEK. . . . . .  C ADDR   0153H   A   
+OMIN . . . . . . .  C ADDR   00F1H   A   
+OMIN0. . . . . . .  C ADDR   006BH   A   
+OMIN1. . . . . . .  C ADDR   0066H   A   
+OMIN2. . . . . . .  C ADDR   005FH   A   
 P0 . . . . . . . .  D ADDR   0080H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
+POKAZ. . . . . . .  C ADDR   0058H   A   
+POWROT . . . . . .  C ADDR   011CH   A   
 RS . . . . . . . .  B ADDR   0090H.2 A   
 RW . . . . . . . .  B ADDR   0090H.1 A   
-SK1. . . . . . . .  C ADDR   00A2H   A   
-SK2. . . . . . . .  C ADDR   00A9H   A   
-SK3. . . . . . . .  C ADDR   00A7H   A   
-SK4. . . . . . . .  C ADDR   00B0H   A   
-SK5. . . . . . . .  C ADDR   0092H   A   
+SK1. . . . . . . .  C ADDR   00F4H   A   
+SK2. . . . . . . .  C ADDR   00FBH   A   
+SK3. . . . . . . .  C ADDR   00F9H   A   
+SK4. . . . . . . .  C ADDR   0102H   A   
+SK5. . . . . . . .  C ADDR   00E4H   A   
+SKUK . . . . . . .  C ADDR   0051H   A   
 START. . . . . . .  C ADDR   0002H   A   
-STOP . . . . . . .  C ADDR   0024H   A   
-TEKST. . . . . . .  C ADDR   0074H   A   
-TUTAJ. . . . . . .  C ADDR   0078H   A   
-WYSWIETL . . . . .  C ADDR   0080H   A   
-ZNAK0. . . . . . .  C ADDR   00C0H   A   
+STOP . . . . . . .  C ADDR   0040H   A   
+TEKST. . . . . . .  C ADDR   00BAH   A   
+TUTAJ. . . . . . .  C ADDR   00BEH   A   
+WYJDZ. . . . . . .  C ADDR   0071H   A   
+WYSWIETL . . . . .  C ADDR   00D2H   A   
+WYSWIETLA. . . . .  C ADDR   00CCH   A   
+WYSWIETLL. . . . .  C ADDR   00D0H   A   
+ZNAK0. . . . . . .  C ADDR   0133H   A   
+ZNAK1. . . . . . .  C ADDR   013BH   A   
+ZNAK2. . . . . . .  C ADDR   0143H   A   
+ZNAK3. . . . . . .  C ADDR   014BH   A   
 
 
 REGISTER BANK(S) USED: 0 
