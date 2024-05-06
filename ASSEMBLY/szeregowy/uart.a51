@@ -31,7 +31,7 @@ licznik0:
 	mov TH0,#10h
 	inc R5
 	cjne R5,#15,wyjdz
-	cpl P3.7
+	;cpl P3.7
 wyjdz:
 	reti
 

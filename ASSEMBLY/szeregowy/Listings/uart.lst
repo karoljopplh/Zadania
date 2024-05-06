@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 08:51:49 PAGE     1
+A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 08:52:39 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -21,13 +21,13 @@ LOC  OBJ            LINE     SOURCE
 000D C291             11             clr RW
 000F C292             12             clr RS
 0011 7E38             13             mov R6,#38h
-0013 1141             14             call LCDwrite
+0013 113F             14             call LCDwrite
 0015 7E06             15             mov R6,#6h
-0017 1141             16             call LCDwrite
+0017 113F             16             call LCDwrite
 0019 7E0F             17             mov R6,#0Fh
-001B 1141             18             call LCDwrite
+001B 113F             18             call LCDwrite
 001D 7E01             19             mov R6,#1h
-001F 1141             20             call LCDwrite
+001F 113F             20             call LCDwrite
 0021 758901           21             mov TMOD,#00000001b
 0024 758C10           22             mov TH0,#10h
 0027 758A00           23             mov TL0,#00h
@@ -40,26 +40,26 @@ LOC  OBJ            LINE     SOURCE
 0032                  30     licznik0:
 0032 758C10           31             mov TH0,#10h
 0035 0D               32             inc R5
-0036 BD0F02           33             cjne R5,#15,wyjdz
-0039 B2B7             34             cpl P3.7
-003B                  35     wyjdz:
-003B 32               36             reti
+0036 BD0F00           33             cjne R5,#15,wyjdz
+                      34             ;cpl P3.7
+0039                  35     wyjdz:
+0039 32               36             reti
                       37     
-003C                  38     delay:
-003C 7F05             39             mov R7,#5
-003E                  40     sk1:
-003E DFFE             41             djnz R7,sk1
-0040 22               42             ret
+003A                  38     delay:
+003A 7F05             39             mov R7,#5
+003C                  40     sk1:
+003C DFFE             41             djnz R7,sk1
+003E 22               42             ret
                       43             
-0041                  44     LCDwrite:
-0041 8E80             45             mov magistrala,R6
-0043 D290             46             setb E
-0045 113C             47             call delay
-0047 C290             48             clr E
-0049 113C             49             call delay
-004B 22               50             ret
+003F                  44     LCDwrite:
+003F 8E80             45             mov magistrala,R6
+0041 D290             46             setb E
+0043 113A             47             call delay
+0045 C290             48             clr E
+0047 113A             49             call delay
+0049 22               50             ret
                       51             end
-A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 08:51:49 PAGE     2
+A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 08:52:39 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -67,26 +67,25 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   003CH   A   
+DELAY. . . . . . .  C ADDR   003AH   A   
 E. . . . . . . . .  B ADDR   0090H.0 A   
 EA . . . . . . . .  B ADDR   00A8H.7 A   
 ET0. . . . . . . .  B ADDR   00A8H.1 A   
-LCDWRITE . . . . .  C ADDR   0041H   A   
+LCDWRITE . . . . .  C ADDR   003FH   A   
 LICZNIK0 . . . . .  C ADDR   0032H   A   
 MAGISTRALA . . . .  D ADDR   0080H   A   
 P0 . . . . . . . .  D ADDR   0080H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
-P3 . . . . . . . .  D ADDR   00B0H   A   
 RS . . . . . . . .  B ADDR   0090H.2 A   
 RW . . . . . . . .  B ADDR   0090H.1 A   
-SK1. . . . . . . .  C ADDR   003EH   A   
+SK1. . . . . . . .  C ADDR   003CH   A   
 START. . . . . . .  C ADDR   000DH   A   
 STOP . . . . . . .  C ADDR   0030H   A   
 TH0. . . . . . . .  D ADDR   008CH   A   
 TL0. . . . . . . .  D ADDR   008AH   A   
 TMOD . . . . . . .  D ADDR   0089H   A   
 TR0. . . . . . . .  B ADDR   0088H.4 A   
-WYJDZ. . . . . . .  C ADDR   003BH   A   
+WYJDZ. . . . . . .  C ADDR   0039H   A   
 
 
 REGISTER BANK(S) USED: 0 
