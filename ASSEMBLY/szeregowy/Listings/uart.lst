@@ -1,0 +1,95 @@
+A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 08:51:49 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\uart.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE uart.a51 SET(SMALL) DEBUG PRINT(.\Listings\uart.lst) OBJECT(.\Objects\u
+                      art.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             org 0h
+0000 800B              2             jmp start
+  0080                 3     magistrala      equ P0
+  0092                 4     RS      bit P1.2
+  0091                 5     RW      bit P1.1
+  0090                 6     E       bit P1.0
+000B                   7             org 0bh
+000B 8025              8             jmp licznik0
+                       9     
+000D                  10     start:
+000D C291             11             clr RW
+000F C292             12             clr RS
+0011 7E38             13             mov R6,#38h
+0013 1141             14             call LCDwrite
+0015 7E06             15             mov R6,#6h
+0017 1141             16             call LCDwrite
+0019 7E0F             17             mov R6,#0Fh
+001B 1141             18             call LCDwrite
+001D 7E01             19             mov R6,#1h
+001F 1141             20             call LCDwrite
+0021 758901           21             mov TMOD,#00000001b
+0024 758C10           22             mov TH0,#10h
+0027 758A00           23             mov TL0,#00h
+002A D28C             24             setb TR0
+002C D2A9             25             setb ET0
+002E D2AF             26             setb EA
+0030                  27     stop:
+0030 80FE             28             jmp stop
+                      29     
+0032                  30     licznik0:
+0032 758C10           31             mov TH0,#10h
+0035 0D               32             inc R5
+0036 BD0F02           33             cjne R5,#15,wyjdz
+0039 B2B7             34             cpl P3.7
+003B                  35     wyjdz:
+003B 32               36             reti
+                      37     
+003C                  38     delay:
+003C 7F05             39             mov R7,#5
+003E                  40     sk1:
+003E DFFE             41             djnz R7,sk1
+0040 22               42             ret
+                      43             
+0041                  44     LCDwrite:
+0041 8E80             45             mov magistrala,R6
+0043 D290             46             setb E
+0045 113C             47             call delay
+0047 C290             48             clr E
+0049 113C             49             call delay
+004B 22               50             ret
+                      51             end
+A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 08:51:49 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   003CH   A   
+E. . . . . . . . .  B ADDR   0090H.0 A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+LCDWRITE . . . . .  C ADDR   0041H   A   
+LICZNIK0 . . . . .  C ADDR   0032H   A   
+MAGISTRALA . . . .  D ADDR   0080H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+RS . . . . . . . .  B ADDR   0090H.2 A   
+RW . . . . . . . .  B ADDR   0090H.1 A   
+SK1. . . . . . . .  C ADDR   003EH   A   
+START. . . . . . .  C ADDR   000DH   A   
+STOP . . . . . . .  C ADDR   0030H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+WYJDZ. . . . . . .  C ADDR   003BH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,95 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    05/06/2024  08:51:49  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\uart.obj TO .\Objects\szeregowy PRINT (.\Listings\szeregowy.m51) RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\uart.obj (UART)
+
+
+LINK MAP OF MODULE:  .\Objects\szeregowy (UART)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     004CH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\szeregowy (UART)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        UART
+  C:003CH         SYMBOL        DELAY
+  B:0090H.0       SYMBOL        E
+  B:00A8H.7       SYMBOL        EA
+  B:00A8H.1       SYMBOL        ET0
+  C:0041H         SYMBOL        LCDWRITE
+  C:0032H         SYMBOL        LICZNIK0
+  D:0080H         SYMBOL        MAGISTRALA
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  D:00B0H         SYMBOL        P3
+  B:0090H.2       SYMBOL        RS
+  B:0090H.1       SYMBOL        RW
+  C:003EH         SYMBOL        SK1
+  C:000DH         SYMBOL        START
+  C:0030H         SYMBOL        STOP
+  D:008CH         SYMBOL        TH0
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  C:003BH         SYMBOL        WYJDZ
+  C:0000H         LINE#         2
+  C:000BH         LINE#         8
+  C:000DH         LINE#         11
+  C:000FH         LINE#         12
+  C:0011H         LINE#         13
+  C:0013H         LINE#         14
+  C:0015H         LINE#         15
+  C:0017H         LINE#         16
+  C:0019H         LINE#         17
+  C:001BH         LINE#         18
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  05/06/2024  08:51:49  PAGE 2
+
+
+  C:001DH         LINE#         19
+  C:001FH         LINE#         20
+  C:0021H         LINE#         21
+  C:0024H         LINE#         22
+  C:0027H         LINE#         23
+  C:002AH         LINE#         24
+  C:002CH         LINE#         25
+  C:002EH         LINE#         26
+  C:0030H         LINE#         28
+  C:0032H         LINE#         31
+  C:0035H         LINE#         32
+  C:0036H         LINE#         33
+  C:0039H         LINE#         34
+  C:003BH         LINE#         36
+  C:003CH         LINE#         39
+  C:003EH         LINE#         41
+  C:0040H         LINE#         42
+  C:0041H         LINE#         45
+  C:0043H         LINE#         46
+  C:0045H         LINE#         47
+  C:0047H         LINE#         48
+  C:0049H         LINE#         49
+  C:004BH         LINE#         50
+  -------         ENDMOD        UART
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0043H BYTE ( 3%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=76
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
