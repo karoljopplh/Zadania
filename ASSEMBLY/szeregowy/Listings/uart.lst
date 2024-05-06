@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 08:52:39 PAGE     1
+A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 10:29:51 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -15,51 +15,110 @@ LOC  OBJ            LINE     SOURCE
   0091                 5     RW      bit P1.1
   0090                 6     E       bit P1.0
 000B                   7             org 0bh
-000B 8025              8             jmp licznik0
+000B 8036              8             jmp licznik0
                        9     
 000D                  10     start:
 000D C291             11             clr RW
 000F C292             12             clr RS
 0011 7E38             13             mov R6,#38h
-0013 113F             14             call LCDwrite
+0013 1182             14             call LCDwrite
 0015 7E06             15             mov R6,#6h
-0017 113F             16             call LCDwrite
+0017 1182             16             call LCDwrite
 0019 7E0F             17             mov R6,#0Fh
-001B 113F             18             call LCDwrite
+001B 1182             18             call LCDwrite
 001D 7E01             19             mov R6,#1h
-001F 113F             20             call LCDwrite
-0021 758901           21             mov TMOD,#00000001b
-0024 758C10           22             mov TH0,#10h
-0027 758A00           23             mov TL0,#00h
-002A D28C             24             setb TR0
-002C D2A9             25             setb ET0
-002E D2AF             26             setb EA
-0030                  27     stop:
-0030 80FE             28             jmp stop
-                      29     
-0032                  30     licznik0:
-0032 758C10           31             mov TH0,#10h
-0035 0D               32             inc R5
-0036 BD0F00           33             cjne R5,#15,wyjdz
-                      34             ;cpl P3.7
-0039                  35     wyjdz:
-0039 32               36             reti
-                      37     
-003A                  38     delay:
-003A 7F05             39             mov R7,#5
-003C                  40     sk1:
-003C DFFE             41             djnz R7,sk1
-003E 22               42             ret
-                      43             
-003F                  44     LCDwrite:
-003F 8E80             45             mov magistrala,R6
-0041 D290             46             setb E
-0043 113A             47             call delay
-0045 C290             48             clr E
-0047 113A             49             call delay
-0049 22               50             ret
-                      51             end
-A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 08:52:39 PAGE     2
+001F 1182             20             call LCDwrite
+0021 758921           21             mov TMOD,#00100001b
+0024 758DFD           22             mov TH1,#0FDh
+0027 758C10           23             mov TH0,#10h
+002A 758A00           24             mov TL0,#00h
+002D 7D00             25             mov R5,#0
+002F 90008D           26             mov DPTR,#napis2
+0032 7C00             27             mov R4,#0
+0034 D28C             28             setb TR0
+0036 D28E             29             setb TR1
+0038 D2AB             30             setb ET1
+003A D2A9             31             setb ET0
+003C D2AF             32             setb EA
+003E 759850           33             mov SCON,#50h
+0041                  34     stop:
+0041 80FE             35             jmp stop
+                      36     
+0043                  37     licznik0:
+0043 758C10           38             mov TH0,#10h
+0046 0D               39             inc R5
+0047 BD0532           40             cjne R5,#5,wyjdz
+004A 7D00             41             mov R5,#0
+004C EC               42             mov A,R4
+004D 93               43             movc A,@A+DPTR
+004E B42402           44             cjne A,#'$',wyswietl
+0051 8029             45             jmp wyjdz
+0053                  46     wyswietl:
+0053 D292             47             setb RS
+0055 FE               48             mov R6,A
+0056 1182             49             call LCDwrite
+0058 BB200F           50             cjne R3,#32,skok2
+005B 7B00             51             mov R3,#0
+005D C292             52             clr RS
+005F 7E80             53             mov R6,#80h
+0061 1182             54             call LCDwrite
+0063 D292             55             setb RS
+0065 FE               56             mov R6,A
+0066 1182             57             call LCDwrite
+A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 10:29:51 PAGE     2
+
+0068 800E             58             jmp skok1
+006A                  59     skok2:  
+006A BB100B           60             cjne R3,#16,skok1
+006D 7EC0             61             mov R6,#0C0h
+006F C292             62             clr RS
+0071 1182             63             call LCDwrite
+0073 D292             64             setb RS
+0075 FE               65             mov R6,A
+0076 1182             66             call LCDwrite
+                      67             ;jmp wyjdz
+0078                  68     skok1:  
+0078 F599             69                     mov SBUF,A
+007A 0C               70                     inc R4
+007B 0B               71                     inc R3
+007C                  72     wyjdz:
+007C 32               73             reti
+                      74     
+007D                  75     delay:
+007D 7F05             76             mov R7,#5
+007F                  77     sk1:
+007F DFFE             78             djnz R7,sk1
+0081 22               79             ret
+                      80             
+0082                  81     LCDwrite:
+0082 8E80             82             mov magistrala,R6
+0084 D290             83             setb E
+0086 117D             84             call delay
+0088 C290             85             clr E
+008A 117D             86             call delay
+008C 22               87             ret
+                      88             
+008D 61616161         89     napis2: db "aaaaaaaaaaaaaaaa dupa dupa dupa cycki cycki cycki"
+0091 61616161                
+0095 61616161                
+0099 61616161                
+009D 20647570                
+00A1 61206475                
+00A5 70612064                
+00A9 75706120                
+00AD 6379636B                
+00B1 69206379                
+00B5 636B6920                
+00B9 6379636B                
+00BD 69                      
+00BE 57535449         90     napis:  db "WSTI w Katowicach. $"       
+00C2 2077204B                
+00C6 61746F77                
+00CA 69636163                
+00CE 682E2024                
+                      91             
+                      92             end
+A51 MACRO ASSEMBLER  UART                                                                 05/06/2024 10:29:51 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -67,25 +126,35 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   003AH   A   
+DELAY. . . . . . .  C ADDR   007DH   A   
 E. . . . . . . . .  B ADDR   0090H.0 A   
 EA . . . . . . . .  B ADDR   00A8H.7 A   
 ET0. . . . . . . .  B ADDR   00A8H.1 A   
-LCDWRITE . . . . .  C ADDR   003FH   A   
-LICZNIK0 . . . . .  C ADDR   0032H   A   
+ET1. . . . . . . .  B ADDR   00A8H.3 A   
+LCDWRITE . . . . .  C ADDR   0082H   A   
+LICZNIK0 . . . . .  C ADDR   0043H   A   
 MAGISTRALA . . . .  D ADDR   0080H   A   
+NAPIS. . . . . . .  C ADDR   00BEH   A   
+NAPIS2 . . . . . .  C ADDR   008DH   A   
 P0 . . . . . . . .  D ADDR   0080H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
 RS . . . . . . . .  B ADDR   0090H.2 A   
 RW . . . . . . . .  B ADDR   0090H.1 A   
-SK1. . . . . . . .  C ADDR   003CH   A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SK1. . . . . . . .  C ADDR   007FH   A   
+SKOK1. . . . . . .  C ADDR   0078H   A   
+SKOK2. . . . . . .  C ADDR   006AH   A   
 START. . . . . . .  C ADDR   000DH   A   
-STOP . . . . . . .  C ADDR   0030H   A   
+STOP . . . . . . .  C ADDR   0041H   A   
 TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
 TL0. . . . . . . .  D ADDR   008AH   A   
 TMOD . . . . . . .  D ADDR   0089H   A   
 TR0. . . . . . . .  B ADDR   0088H.4 A   
-WYJDZ. . . . . . .  C ADDR   0039H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+WYJDZ. . . . . . .  C ADDR   007CH   A   
+WYSWIETL . . . . .  C ADDR   0053H   A   
 
 
 REGISTER BANK(S) USED: 0 

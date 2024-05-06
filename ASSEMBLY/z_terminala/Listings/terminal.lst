@@ -1,0 +1,128 @@
+A51 MACRO ASSEMBLER  TERMINAL                                                             05/06/2024 11:04:00 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\terminal.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE terminal.a51 SET(SMALL) DEBUG PRINT(.\Listings\terminal.lst) OBJECT(.\O
+                      bjects\terminal.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             org 0h
+0000 8023              2             jmp start
+0023                   3             org 23h
+0023 802C              4             jmp serial
+  0080                 5     magistrala      equ P0
+  0092                 6     RS      bit P1.2
+  0091                 7     RW      bit P1.1
+  0090                 8     E       bit P1.0
+                       9     
+0025                  10     start:
+0025 C291             11             clr RW
+0027 C292             12             clr RS
+0029 7E38             13             mov R6,#38h
+002B 1178             14             call LCDwrite
+002D 7E06             15             mov R6,#6h
+002F 1178             16             call LCDwrite
+0031 7E0F             17             mov R6,#0Fh
+0033 1178             18             call LCDwrite
+0035 7E01             19             mov R6,#1h
+0037 1178             20             call LCDwrite
+0039 758920           21             mov TMOD,#00100000b
+003C 758DFD           22             mov TH1,#0FDh
+003F D28E             23             setb TR1
+                      24             ;setb ET1
+0041 7D00             25             mov R5,#0
+0043 759850           26             mov SCON,#50h 
+0046 75B810           27             mov IP,#00010000b 
+0049 D2BC             28             setb PS
+004B D2AC             29             setb ES
+004D D2AF             30             setb EA
+004F                  31     stop:
+004F 80FE             32             jmp stop
+                      33     
+0051                  34     serial:
+0051 AE99             35             mov R6,SBUF
+0053 BD1008           36             cjne R5,#16,skok
+0056 C292             37             clr RS
+0058 7EC0             38             mov R6,#0C0h
+005A 1178             39             call LCDwrite
+005C AE99             40             mov R6,SBUF
+005E                  41     skok:
+005E BD200A           42             cjne R5,#32,pisz
+0061 7D00             43             mov R5,#0
+0063 C292             44             clr RS
+0065 7E01             45             mov R6,#01h 
+0067 1178             46             call LCDwrite
+                      47             ;mov R6,#80h//potrzebny duzy delay
+                      48             ;call LCDwrite
+0069 AE99             49             mov R6,SBUF
+006B                  50     pisz:   
+006B D292             51             setb RS
+006D 1178             52             call LCDwrite
+006F C298             53             clr RI
+0071 0D               54             inc R5
+0072 32               55             reti
+                      56     
+0073                  57     delay:
+A51 MACRO ASSEMBLER  TERMINAL                                                             05/06/2024 11:04:00 PAGE     2
+
+0073 7F05             58             mov R7,#5
+0075                  59     sk1:
+0075 DFFE             60             djnz R7,sk1
+0077 22               61             ret
+                      62             
+0078                  63     LCDwrite:
+0078 8E80             64             mov magistrala,R6
+007A D290             65             setb E
+007C 1173             66             call delay
+007E C290             67             clr E
+0080 1173             68             call delay
+0082 22               69             ret
+                      70             
+0083 57535449         71     napis:  db "WSTI w Katowicach. $"       
+0087 2077204B                
+008B 61746F77                
+008F 69636163                
+0093 682E2024                
+                      72             
+                      73             end
+A51 MACRO ASSEMBLER  TERMINAL                                                             05/06/2024 11:04:00 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0073H   A   
+E. . . . . . . . .  B ADDR   0090H.0 A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ES . . . . . . . .  B ADDR   00A8H.4 A   
+IP . . . . . . . .  D ADDR   00B8H   A   
+LCDWRITE . . . . .  C ADDR   0078H   A   
+MAGISTRALA . . . .  D ADDR   0080H   A   
+NAPIS. . . . . . .  C ADDR   0083H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PISZ . . . . . . .  C ADDR   006BH   A   
+PS . . . . . . . .  B ADDR   00B8H.4 A   
+RI . . . . . . . .  B ADDR   0098H.0 A   
+RS . . . . . . . .  B ADDR   0090H.2 A   
+RW . . . . . . . .  B ADDR   0090H.1 A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SERIAL . . . . . .  C ADDR   0051H   A   
+SK1. . . . . . . .  C ADDR   0075H   A   
+SKOK . . . . . . .  C ADDR   005EH   A   
+START. . . . . . .  C ADDR   0025H   A   
+STOP . . . . . . .  C ADDR   004FH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

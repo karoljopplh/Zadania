@@ -1,0 +1,3 @@
+".\Objects\terminal.obj" 
+TO ".\Objects\terminal" 
+PRINT(".\Listings\terminal.m51") RAMSIZE(256) 
