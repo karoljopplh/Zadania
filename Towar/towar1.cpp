@@ -7,11 +7,11 @@
 /*
 funkcje do zrobienia
 wyszukaj
-sortuj
-maksimum
-minimum
-suma
-srednia
+sortuj		//zrobione
+maksimum 	//zrobione
+minimum		//zrobione
+suma		//zrobione
+srednia		//zrobione
 */
 
 struct towar
@@ -28,9 +28,11 @@ void generujPosortowane(towar magazyn[], int liczba_danych);			//od 1 do liczba 
 void generujOdwrotniePosortowane(towar magazyn[], int liczba_danych);	//od 1 do liczba danych
 void dodajTowar(towar magazyn[], towar nowy, int *liczba_danych);		//dopisuje na koniec
 void wypisz(towar towary[], int ile);									//od 1 do liczba danych
-float sumaWartosci(towar magazyn[], int liczba_danych);
+float sumaWartosci(towar magazyn[], int int n);
 float sredniaCena(towar magazyn[], int liczba_danych);
 void wyszukajCena(towar magazyn[], int ile_danych, towar wyszukane[], int *ile_wyszukanych, float min, float max);
+float wyszukiwanie_min(towar magazyn[], int n);
+float wyszukiwanie_max(towar magazyn[], int n);
 void minmaxCena(towar magazyn[], int liczba_danych, float *min, float *max);
 void przecena(towar magazyn[], int liczba_danych, float procent);
 void selectionSort(towar magazyn[], int liczba_danych);
@@ -127,30 +129,45 @@ int main()
 						
 		}
 	}
-	while();x
+	while();
 	return 0;
+}
+
+void wyszukajCena(towar magazyn[], int ile_danych, towar wyszukane[], int *ile_wyszukanych, float min, float max)
+{
+	int ile=0;
+		for(int i=0; i<ile_danych; i++)
+			if(magazyn[i]>min && magazyn[i]<max)
+				ile++;
+		for(int i=0, j=0; i<ile_danych; i++)
+			if(magazyn[i]>min && magazyn[i]<max)
+			{
+				wyszukane[j] = t[i];
+				index[j] = i;
+				j++;
+			}
 }
 
 float sumaWartosci(towar magazyn[], int liczba_danych)
 {
 	long int s=0;
-	for(int i=0; i<n; i++)
-		s+=tab[i];
+	for(int i=0; i<liczba_danych; i++)
+		s+=magazyn[i];
 	return s;
 }
 
 float sredniaCena(towar magazyn[], int liczba_danych)
 {
 	float sum = sumaWartosci(towar magazyn[], int liczba_danych);
-	return sum/liczba_danych
+	return sum/liczba_danych;
 }
 
-void selectionSort(int t[], int n)
+void selectionSort(towar magazyn[], int n)
 {
 	int min, imin;
 	for(int nr=1; nr<n; nr++)	//opt(n^2) ocz(n^2) pes(n^2)
 	{
-		min=t[nr];
+		min=magazyn[nr];
 		imin=nr;
 		for(int i=nr+1; i<=n; i++)
 		{
@@ -160,8 +177,36 @@ void selectionSort(int t[], int n)
 				imin=i;
 			}
 		}
-		t[imin]=t[nr];
-		t[nr]=min;
+		magazyn[imin]=magazyn[nr];
+		magazyn[nr]=min;
 	}
 	
+}
+
+int wyszukiwanie_min(towar magazyn[], int n)
+{
+	if(n<=0)
+		return -1;	// ERROR - empty table
+		
+	int min = magazyn[0];
+	for(int i=1; i<n; i++)
+	{
+		if(magazyn[i]<min)
+			min=magazyn[i];
+	}
+	return min;
+}
+
+int wyszukiwanie_max(towar magazyn[], int n)
+{
+	if(n<=0)
+		return -1;	// ERROR - empty table
+		
+	int max = magazyn[0];
+	for(int i=1; i<n; i++)
+	{
+		if(magazyn[i]>max)
+			max=magazyn[i];
+	}
+	return max;
 }
