@@ -240,49 +240,49 @@ float sredniaCena(towar magazyn[], int liczba_danych)
 void selectionSort(towar magazyn[], int n)
 {
 	towar min;
-	int min, imin;
-	for(int nr=1; nr<n; nr++)	//opt(n^2) ocz(n^2) pes(n^2)
+	int index, i, nr;
+	for(nr=1; nr<n; nr++)	//opt(n^2) ocz(n^2) pes(n^2)
 	{
 		min=magazyn[nr];
-		imin=nr;
-		for(int i=nr+1; i<=n; i++)
+		index=nr;
+		for(i=nr+1; i<=n; i++)
 		{
 			if(magazyn[i].cena<min.cena)
 			{
 				min=magazyn[i];
-				imin=i;
+				index=i;
 			}
 		}
-		magazyn[imin]=magazyn[nr];
+		magazyn[index]=magazyn[nr];
 		magazyn[nr]=min;
 	}
 	
 }
 
-int wyszukiwanie_min(towar magazyn[], int n)
+float wyszukiwanie_min(towar magazyn[], int n)
 {
 	if(n<=0)
 		return -1;	// ERROR - empty table
 		
-	int min = magazyn[0];
+	int min = magazyn[0].cena;
 	for(int i=1; i<n; i++)
 	{
-		if(magazyn[i]<min)
-			min=magazyn[i];
+		if(magazyn[i].cena<min)
+			min=magazyn[i].cena;
 	}
 	return min;
 }
 
-int wyszukiwanie_max(towar magazyn[], int n)
+float wyszukiwanie_max(towar magazyn[], int n)
 {
 	if(n<=0)
 		return -1;	// ERROR - empty table
 		
-	int max = magazyn[0];
+	int max = magazyn[0].cena;
 	for(int i=1; i<n; i++)
 	{
-		if(magazyn[i]>max)
-			max=magazyn[i];
+		if(magazyn[i].cena>max)
+			max=magazyn[i].cena;
 	}
 	return max;
 }
