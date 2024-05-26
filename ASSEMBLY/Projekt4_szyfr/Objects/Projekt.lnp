@@ -1,0 +1,3 @@
+".\Objects\Projekt_szyfr.obj" 
+TO ".\Objects\Projekt" 
+PRINT(".\Listings\Projekt.m51") RAMSIZE(256) 

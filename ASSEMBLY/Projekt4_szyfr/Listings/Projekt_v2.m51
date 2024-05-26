@@ -1,0 +1,195 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    05/20/2024  10:42:31  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\projekt_szyfr_v2.obj TO .\Objects\Projekt_v2 PRINT (.\Listings\Projekt_v2.m51) RAM
+>> SIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\projekt_szyfr_v2.obj (PROJEKT_SZYFR_V2)
+
+
+LINK MAP OF MODULE:  .\Objects\Projekt_v2 (PROJEKT_SZYFR_V2)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     00F5H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Projekt_v2 (PROJEKT_SZYFR_V2)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        PROJEKT_SZYFR_V2
+  C:0070H         SYMBOL        CNIEWCISNIETE
+  C:00B2H         SYMBOL        DALEJ
+  C:00D3H         SYMBOL        DELAY
+  C:00D8H         SYMBOL        DELAYL
+  C:00E1H         SYMBOL        DELAYM
+  C:009AH         SYMBOL        DNIEWCISNIETE
+  C:0086H         SYMBOL        DZ
+  B:0090H.0       SYMBOL        E
+  B:00A8H.7       SYMBOL        EA
+  B:00A8H.1       SYMBOL        ET0
+  B:00D0H.5       SYMBOL        F0
+  C:009CH         SYMBOL        JED
+  C:00B0H         SYMBOL        JNIEWCISNIETE
+  C:00EAH         SYMBOL        LCDZAPIS
+  C:0048H         SYMBOL        LICZNIK0
+  D:0080H         SYMBOL        MAGISTRALA
+  C:006EH         SYMBOL        NIEPOPRAWNY
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  D:00B0H         SYMBOL        P3
+  B:0090H.2       SYMBOL        RS
+  B:0090H.1       SYMBOL        RW
+  C:00D5H         SYMBOL        SK1
+  C:00DCH         SYMBOL        SK2
+  C:00DAH         SYMBOL        SK3
+  C:00E4H         SYMBOL        SKM
+  C:0084H         SYMBOL        SNIEWCISNIETE
+  B:00B0H.5       SYMBOL        SPRAWDZ
+  C:0070H         SYMBOL        ST
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  05/20/2024  10:42:31  PAGE 2
+
+
+  C:000DH         SYMBOL        START
+  C:0046H         SYMBOL        STOP
+  D:008CH         SYMBOL        TH0
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  B:00B0H.3       SYMBOL        USTAWD
+  B:00B0H.2       SYMBOL        USTAWJ
+  B:00B0H.4       SYMBOL        USTAWS
+  C:00B5H         SYMBOL        WYPISZD
+  C:0000H         LINE#         11
+  C:000BH         LINE#         13
+  C:000DH         LINE#         16
+  C:000FH         LINE#         17
+  C:0011H         LINE#         18
+  C:0013H         LINE#         19
+  C:0015H         LINE#         20
+  C:0017H         LINE#         21
+  C:0019H         LINE#         22
+  C:001BH         LINE#         23
+  C:001DH         LINE#         24
+  C:001FH         LINE#         25
+  C:0021H         LINE#         26
+  C:0023H         LINE#         29
+  C:0026H         LINE#         30
+  C:0029H         LINE#         31
+  C:002CH         LINE#         32
+  C:002EH         LINE#         33
+  C:0030H         LINE#         34
+  C:0032H         LINE#         37
+  C:0035H         LINE#         38
+  C:0038H         LINE#         39
+  C:003BH         LINE#         42
+  C:003EH         LINE#         43
+  C:0041H         LINE#         44
+  C:0044H         LINE#         46
+  C:0046H         LINE#         48
+  C:0048H         LINE#         53
+  C:004BH         LINE#         55
+  C:004DH         LINE#         56
+  C:004FH         LINE#         57
+  C:0052H         LINE#         58
+  C:0054H         LINE#         59
+  C:0057H         LINE#         60
+  C:0059H         LINE#         61
+  C:005CH         LINE#         64
+  C:005FH         LINE#         65
+  C:0061H         LINE#         66
+  C:0063H         LINE#         67
+  C:0066H         LINE#         68
+  C:0069H         LINE#         69
+  C:006CH         LINE#         70
+  C:006EH         LINE#         72
+  C:0070H         LINE#         75
+  C:0073H         LINE#         76
+  C:0076H         LINE#         77
+  C:0078H         LINE#         78
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  05/20/2024  10:42:31  PAGE 3
+
+
+  C:007AH         LINE#         79
+  C:007CH         LINE#         80
+  C:007FH         LINE#         81
+  C:0082H         LINE#         82
+  C:0084H         LINE#         83
+  C:0086H         LINE#         85
+  C:0089H         LINE#         86
+  C:008CH         LINE#         87
+  C:008EH         LINE#         88
+  C:0090H         LINE#         89
+  C:0092H         LINE#         90
+  C:0095H         LINE#         91
+  C:0098H         LINE#         92
+  C:009AH         LINE#         93
+  C:009CH         LINE#         95
+  C:009FH         LINE#         96
+  C:00A2H         LINE#         97
+  C:00A4H         LINE#         98
+  C:00A6H         LINE#         99
+  C:00A8H         LINE#         100
+  C:00ABH         LINE#         101
+  C:00AEH         LINE#         102
+  C:00B0H         LINE#         103
+  C:00B2H         LINE#         104
+  C:00B4H         LINE#         105
+  C:00B5H         LINE#         220
+  C:00B7H         LINE#         221
+  C:00B9H         LINE#         222
+  C:00BBH         LINE#         223
+  C:00BDH         LINE#         224
+  C:00BFH         LINE#         225
+  C:00C1H         LINE#         226
+  C:00C2H         LINE#         227
+  C:00C4H         LINE#         228
+  C:00C6H         LINE#         229
+  C:00C8H         LINE#         230
+  C:00C9H         LINE#         231
+  C:00CBH         LINE#         232
+  C:00CDH         LINE#         233
+  C:00CFH         LINE#         234
+  C:00D0H         LINE#         235
+  C:00D2H         LINE#         236
+  C:00D3H         LINE#         239
+  C:00D5H         LINE#         240
+  C:00D7H         LINE#         241
+  C:00D8H         LINE#         244
+  C:00DAH         LINE#         245
+  C:00DCH         LINE#         246
+  C:00DEH         LINE#         247
+  C:00E0H         LINE#         248
+  C:00E1H         LINE#         251
+  C:00E4H         LINE#         252
+  C:00E6H         LINE#         253
+  C:00E9H         LINE#         254
+  C:00EAH         LINE#         257
+  C:00ECH         LINE#         258
+  C:00EEH         LINE#         259
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  05/20/2024  10:42:31  PAGE 4
+
+
+  C:00F0H         LINE#         260
+  C:00F2H         LINE#         261
+  C:00F4H         LINE#         262
+  -------         ENDMOD        PROJEKT_SZYFR_V2
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00ECH BYTE (11%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=245
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

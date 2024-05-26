@@ -1,0 +1,335 @@
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR_V2                                                     05/20/2024 10:42:31 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\projekt_szyfr_v2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE projekt_szyfr_v2.a51 SET(SMALL) DEBUG PRINT(.\Listings\projekt_szyfr_v2
+                      .lst) OBJECT(.\Objects\projekt_szyfr_v2.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0080                 1     magistrala equ P0
+  0090                 2     E bit P1.0
+  0092                 3     RS bit P1.2
+  0091                 4     RW bit P1.1
+  00B4                 5     ustaws  bit P3.4
+  00B3                 6     ustawd  bit P3.3
+  00B2                 7     ustawj  bit     P3.2
+  00B5                 8     sprawdz bit P3.5
+                       9             
+0000                  10             org 0h
+0000 800B             11                     jmp start
+000B                  12             org 0bh
+000B 803B             13                     jmp licznik0
+000D                  14     start:
+                      15             
+000D C291             16                     clr RW 
+000F C292             17                     clr RS 
+0011 7E38             18                     mov R6,#38h 
+0013 11EA             19                     call LCDzapis
+0015 7E06             20                     mov R6,#6h 
+0017 11EA             21                     call LCDzapis
+0019 7E0F             22                     mov R6,#0Fh 
+001B 11EA             23                     call LCDzapis
+001D 7E01             24                     mov R6,#1h 
+001F 11EA             25                     call LCDzapis
+0021 11D8             26                     call DelayL
+                      27                     
+                      28             
+0023 758901           29                     mov TMOD,#00000001b
+0026 758CD5           30                     mov TH0,#0D5h    
+0029 758A9C           31                     mov TL0,#9Ch
+002C D28C             32                     setb TR0
+002E D2A9             33                     setb ET0
+0030 D2AF             34                     setb EA
+                      35                     
+                      36                     
+0032 757000           37                     mov 70h,#0       
+0035 757100           38                     mov 71h,#0       
+0038 757200           39                     mov 72h,#0       
+                      40                     
+                      41                     
+003B 756001           42                     mov 60h,#1       
+003E 756102           43                     mov 61h,#2       
+0041 756203           44                     mov 62h,#3       
+                      45                     
+0044 11B5             46                     call wypiszD     
+                      47                     
+0046 80FE             48     stop:   jmp stop
+                      49     
+                      50     
+                      51     
+0048                  52     licznik0:        
+0048 20B525           53                     jb P3.5,cniewcisniete
+                      54     ;               jb F0,st
+004B D2D5             55                     setb F0
+004D E570             56                     mov A,70h
+004F B5601C           57                     cjne A,60h,niepoprawny
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR_V2                                                     05/20/2024 10:42:31 PAGE     2
+
+0052 E571             58                     mov A,71h
+0054 B56117           59                     cjne A,61h,niepoprawny
+0057 E572             60                     mov A,72h
+0059 B56212           61                     cjne A,62h,niepoprawny
+                      62                     
+                      63                     
+005C 7580FF           64                     mov magistrala,#255
+005F C280             65                     clr P0.0         
+0061 11E1             66                     call delayM      
+0063 757000           67                     mov 70h,#0       
+0066 757100           68                     mov 71h,#0       
+0069 757200           69                     mov 72h,#0       
+006C D280             70                     setb P0.0
+006E                  71     niepoprawny:
+006E 8000             72                     jmp st
+0070                  73     cniewcisniete:  ;clr F0
+                      74     
+0070 20B411           75     st:             jb ustaws,sniewcisniete
+0073 209310           76                     jb P1.3,dz
+0076 0570             77                     inc 70h
+0078 D293             78                     setb P1.3
+007A AB70             79                     mov R3,70h                       
+007C BB0A07           80                     cjne R3,#10,dz
+007F 757000           81                     mov 70h,#0
+0082 8002             82                     jmp dz
+0084 C293             83     sniewcisniete:  clr P1.3
+                      84     
+0086 20B311           85     dz:             jb ustawd,dniewcisniete
+0089 209410           86                     jb P1.4,jed                      
+008C 0571             87                     inc 71h
+008E D294             88                     setb P1.4
+0090 AB71             89                     mov R3,71h
+0092 BB0A07           90                     cjne R3,#10,jed
+0095 757100           91                     mov 71h,#0
+0098 8002             92                     jmp jed
+009A C294             93     dniewcisniete:  clr P1.4
+                      94     
+009C 20B211           95     jed:    jb ustawj,jniewcisniete
+009F 209510           96                     jb P1.5,dalej
+00A2 0572             97                     inc 72h
+00A4 D295             98                     setb P1.5
+00A6 AB72             99                     mov R3,72h
+00A8 BB0A07          100                     cjne R3,#10,dalej
+00AB 757200          101                     mov 72h,#0
+00AE 8002            102                     jmp dalej
+00B0 C295            103     jniewcisniete:  clr P1.5
+00B2 11B5            104     dalej:  call wypiszD
+00B4 32              105                     reti
+                     106     
+                     107     
+                     108     
+                     109     
+                     110     
+                     111     
+                     112     
+                     113     
+                     114     
+                     115     
+                     116     
+                     117     
+                     118     
+                     119     
+                     120     
+                     121     
+                     122     
+                     123     
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR_V2                                                     05/20/2024 10:42:31 PAGE     3
+
+                     124     
+                     125     
+                     126     
+                     127     
+                     128     
+                     129     
+                     130     
+                     131     
+                     132     
+                     133     
+                     134     
+                     135     
+                     136     
+                     137     
+                     138     
+                     139     
+                     140     
+                     141     
+                     142     
+                     143     
+                     144     
+                     145     
+                     146     
+                     147     
+                     148     
+                     149     
+                     150     
+                     151     
+                     152     
+                     153     
+                     154     
+                     155     
+                     156     
+                     157     
+                     158     
+                     159     
+                     160     
+                     161     
+                     162     
+                     163     
+                     164     
+                     165     
+                     166     
+                     167     
+                     168     
+                     169     
+                     170     
+                     171     
+                     172     
+                     173     
+                     174     
+                     175     
+                     176     
+                     177     
+                     178     
+                     179     
+                     180     
+                     181     
+                     182     
+                     183     
+                     184     
+                     185     
+                     186     
+                     187     
+                     188     
+                     189     
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR_V2                                                     05/20/2024 10:42:31 PAGE     4
+
+                     190     
+                     191     
+                     192     
+                     193     
+                     194     
+                     195     
+                     196     
+                     197     
+                     198     
+                     199     
+                     200     
+                     201     
+                     202     
+                     203     
+                     204     
+                     205     
+                     206     
+                     207     
+                     208     
+                     209     
+                     210     
+                     211     
+                     212     
+                     213     
+                     214     
+                     215     
+                     216     
+                     217     
+                     218     
+00B5                 219     wypiszD:         
+00B5 C292            220             clr RS
+00B7 7E80            221             mov R6,#80h
+00B9 11EA            222             call LCDzapis
+00BB D292            223             setb RS
+00BD E570            224             mov A,70h
+00BF 2430            225             add A,#30h
+00C1 FE              226             mov R6,A
+00C2 11EA            227             call LCDzapis
+00C4 E571            228             mov A,71h
+00C6 2430            229             add A,#30h
+00C8 FE              230             mov R6,A
+00C9 11EA            231             call LCDzapis
+00CB E572            232             mov A,72h
+00CD 2430            233             add A,#30h
+00CF FE              234             mov R6,A
+00D0 11EA            235             call LCDzapis
+00D2 22              236             ret
+                     237             
+00D3                 238     delay:
+00D3 7F05            239             mov R7,#5
+00D5 DFFE            240     sk1:djnz R7,sk1
+00D7 22              241             ret
+                     242             
+00D8                 243     delayL: 
+00D8 7CFF            244             mov R4,#0ffh
+00DA 7DFF            245     sk3:mov R5,#0ffh
+00DC DDFE            246     sk2:djnz R5,sk2
+00DE DCFA            247             djnz R4,sk3
+00E0 22              248             ret
+                     249     
+00E1                 250     delayM:
+00E1 75640E          251             mov 64h,#14
+00E4 11D8            252     skM:call delayL
+00E6 D564FB          253             djnz 64h,skM
+00E9 22              254             ret
+                     255     
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR_V2                                                     05/20/2024 10:42:31 PAGE     5
+
+00EA                 256     LCDzapis:
+00EA 8E80            257             mov magistrala,R6
+00EC D290            258             setb E
+00EE 11D3            259             call delay
+00F0 C290            260             clr E
+00F2 11D3            261             call delay
+00F4 22              262             ret
+                     263             
+                     264             end     
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR_V2                                                     05/20/2024 10:42:31 PAGE     6
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CNIEWCISNIETE. . .  C ADDR   0070H   A   
+DALEJ. . . . . . .  C ADDR   00B2H   A   
+DELAY. . . . . . .  C ADDR   00D3H   A   
+DELAYL . . . . . .  C ADDR   00D8H   A   
+DELAYM . . . . . .  C ADDR   00E1H   A   
+DNIEWCISNIETE. . .  C ADDR   009AH   A   
+DZ . . . . . . . .  C ADDR   0086H   A   
+E. . . . . . . . .  B ADDR   0090H.0 A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+F0 . . . . . . . .  B ADDR   00D0H.5 A   
+JED. . . . . . . .  C ADDR   009CH   A   
+JNIEWCISNIETE. . .  C ADDR   00B0H   A   
+LCDZAPIS . . . . .  C ADDR   00EAH   A   
+LICZNIK0 . . . . .  C ADDR   0048H   A   
+MAGISTRALA . . . .  D ADDR   0080H   A   
+NIEPOPRAWNY. . . .  C ADDR   006EH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+RS . . . . . . . .  B ADDR   0090H.2 A   
+RW . . . . . . . .  B ADDR   0090H.1 A   
+SK1. . . . . . . .  C ADDR   00D5H   A   
+SK2. . . . . . . .  C ADDR   00DCH   A   
+SK3. . . . . . . .  C ADDR   00DAH   A   
+SKM. . . . . . . .  C ADDR   00E4H   A   
+SNIEWCISNIETE. . .  C ADDR   0084H   A   
+SPRAWDZ. . . . . .  B ADDR   00B0H.5 A   
+ST . . . . . . . .  C ADDR   0070H   A   
+START. . . . . . .  C ADDR   000DH   A   
+STOP . . . . . . .  C ADDR   0046H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+USTAWD . . . . . .  B ADDR   00B0H.3 A   
+USTAWJ . . . . . .  B ADDR   00B0H.2 A   
+USTAWS . . . . . .  B ADDR   00B0H.4 A   
+WYPISZD. . . . . .  C ADDR   00B5H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

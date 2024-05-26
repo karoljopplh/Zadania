@@ -1,0 +1,425 @@
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR                                                        05/16/2024 19:44:51 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Projekt_szyfr.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Projekt_szyfr.a51 SET(SMALL) DEBUG PRINT(.\Listings\Projekt_szyfr.lst) 
+                      OBJECT(.\Objects\Projekt_szyfr.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0080                 1     magistrala equ P0
+  0090                 2     E bit P1.0
+  0092                 3     RS bit P1.2
+  0091                 4     RW bit P1.1
+  00B5                 5     ustaws  bit P3.5
+  00B4                 6     ustawd  bit P3.4
+  00B3                 7     ustawj  bit     P3.3
+  00B2                 8     sprawdz bit P3.2
+                       9             
+0000                  10             org 0h
+0000 801B             11                     jmp start
+000B                  12             org 0bh
+000B 8056             13                     jmp licznik0
+001B                  14             org 1bh
+001B 216C             15                     jmp licznik1
+                      16                     
+001D                  17     start:
+                      18             
+001D C291             19                     clr RW 
+001F C292             20                     clr RS 
+0021 7E38             21                     mov R6,#38h 
+0023 317B             22                     call LCDzapis
+0025 7E06             23                     mov R6,#6h 
+0027 317B             24                     call LCDzapis
+0029 7E0F             25                     mov R6,#0Fh 
+002B 317B             26                     call LCDzapis
+002D 7E01             27                     mov R6,#1h 
+002F 317B             28                     call LCDzapis
+0031 3172             29                     call DelayL
+                      30                     
+                      31             
+0033 758911           32                     mov TMOD,#00010001b
+0036 758CD5           33                     mov TH0,#0D5h    
+0039 758A9C           34                     mov TL0,#9Ch
+003C 758DD5           35                     mov TH1,#0D5h    
+003F 758B9C           36                     mov TL1,#9Ch
+0042 D28C             37                     setb TR0
+0044 D28E             38                     setb TR1
+0046 D2A9             39                     setb ET0
+0048 D2AB             40                     setb ET1
+004A D2AF             41                     setb EA
+                      42                     
+                      43             
+004C 757000           44                     mov 70h,#0
+004F 757100           45                     mov 71h,#0
+0052 757200           46                     mov 72h,#0
+0055 758000           47                     mov 80h,#0
+                      48     
+                      49     
+                      50     
+                      51     
+                      52     
+                      53     
+                      54     
+                      55     
+                      56     
+                      57     
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR                                                        05/16/2024 19:44:51 PAGE     2
+
+                      58     
+                      59     
+                      60     
+                      61     
+                      62     
+0058 BA01FD           63     pstart: cjne R2,#1,pstart
+005B 1191             64                     call refresh
+005D 7A00             65                     mov R2,#0
+005F 80F7             66                     jmp pstart
+                      67                     
+0061 80FE             68     stop:   jmp stop         
+                      69     
+                      70     
+                      71     
+0063                  72     licznik0:        
+0063 20B50C           73     st:             jb ustaws,dz
+0066 0570             74                     inc 70h
+0068 7A01             75                     mov R2,#1
+006A AB70             76                     mov R3,70h                       
+006C BB0A03           77                     cjne R3,#10,dz
+006F 757000           78                     mov 70h,#0
+0072 20B40C           79     dz:             jb ustawd,jed
+0075 0571             80                     inc 71h
+0077 7A01             81                     mov R2,#1
+0079 AB71             82                     mov R3,71h
+007B BB0A03           83                     cjne R3,#10,jed
+007E 757100           84                     mov 71h,#0
+0081 20B30C           85     jed:    jb ustawj,dalej
+0084 0572             86                     inc 72h
+0086 7A01             87                     mov R2,#1
+0088 AB72             88                     mov R3,72h
+008A BB0A03           89                     cjne R3,#10,dalej
+008D 757200           90                     mov 72h,#0
+0090                  91     dalej:          
+0090 32               92                     reti
+                      93                     
+                      94     
+                      95     
+0091                  96     refresh:
+0091 758003           97                     mov 80h,#3
+0094 7870             98                     mov R0,#70h
+                      99     
+0096 B60908          100     bit4:   cjne @R0,#9,bit41
+0099 7E31            101                     mov R6,#31h
+009B D292            102                     setb RS
+009D 317B            103                     call LCDzapis
+009F 8011            104                     jmp bit3
+00A1 B60808          105     bit41:  cjne @R0,#8,bit40
+00A4 7E31            106                     mov R6,#31h
+00A6 D292            107                     setb RS
+00A8 317B            108                     call LCDzapis
+00AA 8006            109                     jmp bit3
+00AC 7E30            110     bit40:  mov R6,#30h
+00AE D292            111                     setb RS
+00B0 317B            112                     call LCDzapis
+                     113     
+00B2 B60708          114     bit3:   cjne @R0,#7,bit31
+00B5 7E31            115                     mov R6,#31h
+00B7 D292            116                     setb RS
+00B9 317B            117                     call LCDzapis
+00BB 8027            118                     jmp bit2
+00BD B60608          119     bit31:  cjne @R0,#6,bit32
+00C0 7E31            120                     mov R6,#31h
+00C2 D292            121                     setb RS
+00C4 317B            122                     call LCDzapis
+00C6 801C            123                     jmp bit2
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR                                                        05/16/2024 19:44:51 PAGE     3
+
+00C8 B60508          124     bit32:  cjne @R0,#5,bit33
+00CB 7E31            125                     mov R6,#31h
+00CD D292            126                     setb RS
+00CF 317B            127                     call LCDzapis
+00D1 8011            128                     jmp bit2
+00D3 B60408          129     bit33:  cjne @R0,#4,bit30
+00D6 7E31            130                     mov R6,#31h
+00D8 D292            131                     setb RS
+00DA 317B            132                     call LCDzapis
+00DC 8006            133                     jmp bit2
+00DE 7E30            134     bit30:  mov R6,#30h
+00E0 D292            135                     setb RS
+00E2 317B            136                     call LCDzapis
+                     137     
+00E4 B60208          138     bit2:   cjne @R0,#2,bit21
+00E7 7E31            139                     mov R6,#31h
+00E9 D292            140                     setb RS
+00EB 317B            141                     call LCDzapis
+00ED 8027            142                     jmp bit1
+00EF B60308          143     bit21:  cjne @R0,#3,bit22
+00F2 7E31            144                     mov R6,#31h
+00F4 D292            145                     setb RS
+00F6 317B            146                     call LCDzapis
+00F8 801C            147                     jmp bit1
+00FA B60608          148     bit22:  cjne @R0,#6,bit23
+00FD 7E31            149                     mov R6,#31h
+00FF D292            150                     setb RS
+0101 317B            151                     call LCDzapis
+0103 8011            152                     jmp bit1
+0105 B60708          153     bit23:  cjne @R0,#7,bit20
+0108 7E31            154                     mov R6,#31h
+010A D292            155                     setb RS
+010C 317B            156                     call LCDzapis
+010E 8006            157                     jmp bit1
+0110 7E30            158     bit20:  mov R6,#30h
+0112 D292            159                     setb RS
+0114 317B            160                     call LCDzapis
+                     161     
+0116 B60908          162     bit1:   cjne @R0,#9,bit11
+0119 7E31            163                     mov R6,#31h
+011B D292            164                     setb RS
+011D 317B            165                     call LCDzapis
+011F 8036            166                     jmp pomin
+0121 B60708          167     bit11:  cjne @R0,#7,bit12
+0124 7E31            168                     mov R6,#31h
+0126 D292            169                     setb RS
+0128 317B            170                     call LCDzapis
+012A 802B            171                     jmp pomin
+012C B60508          172     bit12:  cjne @R0,#5,bit13
+012F 7E31            173                     mov R6,#31h
+0131 D292            174                     setb RS
+0133 317B            175                     call LCDzapis
+0135 8020            176                     jmp pomin
+0137 B60308          177     bit13:  cjne @R0,#3,bit14
+013A 7E31            178                     mov R6,#31h
+013C D292            179                     setb RS
+013E 317B            180                     call LCDzapis
+0140 8015            181                     jmp pomin
+0142 B60108          182     bit14:  cjne @R0,#1,bit10
+0145 7E31            183                     mov R6,#31h
+0147 D292            184                     setb RS
+0149 317B            185                     call LCDzapis
+014B 800A            186                     jmp pomin
+014D 7E30            187     bit10:  mov R6,#30h
+014F D292            188                     setb RS
+0151 317B            189                     call LCDzapis
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR                                                        05/16/2024 19:44:51 PAGE     4
+
+0153 7E20            190                     mov R6,#' '
+0155 317B            191                     call LCDzapis
+                     192     
+0157                 193     pomin:
+0157 08              194                     inc R0
+0158 D5800F          195                     djnz 80h,bit4A
+015B C292            196                     clr RS
+015D 7E01            197                     mov R6,#1h
+015F 317B            198                     call LCDzapis
+0161 3172            199                     call delayL
+0163 7E80            200                     mov R6,#80h
+                     201                     
+0165 317B            202                     call LCDzapis
+0167 0191            203                     jmp refresh
+0169 22              204                     ret
+016A 0196            205     bit4A:  jmp bit4
+                     206     
+                     207     
+                     208                     
+016C                 209     licznik1:        
+                     210     
+                     211     
+                     212     
+                     213     
+                     214     
+                     215     
+                     216     
+                     217     
+                     218     
+                     219     
+                     220     
+                     221     
+                     222     
+                     223     
+                     224     
+                     225     
+                     226     
+                     227     
+                     228     
+                     229     
+                     230     
+                     231     
+                     232     
+                     233     
+                     234     
+                     235     
+                     236     
+                     237     
+                     238     
+                     239     
+                     240     
+                     241     
+                     242     
+                     243     
+                     244     
+                     245     
+                     246     
+                     247     
+                     248     
+                     249     
+                     250     
+                     251     
+                     252     
+                     253     
+                     254     
+                     255     
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR                                                        05/16/2024 19:44:51 PAGE     5
+
+                     256     
+                     257     
+                     258     
+                     259     
+                     260     
+                     261     
+                     262     
+                     263     
+                     264     
+                     265     
+                     266     
+                     267     
+                     268     
+                     269     
+                     270     
+                     271     
+                     272     
+                     273     
+                     274     
+                     275     
+                     276     
+                     277     
+                     278     
+                     279     
+                     280     
+                     281     
+                     282     
+                     283     
+                     284     
+                     285     
+                     286     
+                     287     
+                     288     
+                     289     
+                     290     
+                     291     
+                     292     
+                     293     
+                     294     
+                     295     
+                     296     
+                     297     
+                     298     
+                     299     
+                     300     
+                     301     
+                     302     
+                     303     
+                     304     
+                     305     
+                     306     
+                     307     
+                     308     
+                     309     
+                     310     
+016C 32              311     reti
+                     312     
+016D                 313     delay:
+016D 7F05            314             mov R7,#5
+016F DFFE            315     sk1:djnz R7,sk1
+0171 22              316             ret
+                     317             
+0172                 318     delayL: 
+0172 7CFF            319             mov R4,#0ffh
+0174 7DFF            320     sk3:mov R5,#0ffh
+0176 DDFE            321     sk2:djnz R5,sk2
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR                                                        05/16/2024 19:44:51 PAGE     6
+
+0178 DCFA            322             djnz R4,sk3
+017A 22              323             ret
+                     324             
+017B                 325     LCDzapis:
+017B 8E80            326             mov magistrala,R6
+017D D290            327             setb E
+017F 316D            328             call delay
+0181 C290            329             clr E
+0183 316D            330             call delay
+0185 22              331             ret
+                     332             
+                     333             end
+A51 MACRO ASSEMBLER  PROJEKT_SZYFR                                                        05/16/2024 19:44:51 PAGE     7
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BIT1 . . . . . . .  C ADDR   0116H   A   
+BIT10. . . . . . .  C ADDR   014DH   A   
+BIT11. . . . . . .  C ADDR   0121H   A   
+BIT12. . . . . . .  C ADDR   012CH   A   
+BIT13. . . . . . .  C ADDR   0137H   A   
+BIT14. . . . . . .  C ADDR   0142H   A   
+BIT2 . . . . . . .  C ADDR   00E4H   A   
+BIT20. . . . . . .  C ADDR   0110H   A   
+BIT21. . . . . . .  C ADDR   00EFH   A   
+BIT22. . . . . . .  C ADDR   00FAH   A   
+BIT23. . . . . . .  C ADDR   0105H   A   
+BIT3 . . . . . . .  C ADDR   00B2H   A   
+BIT30. . . . . . .  C ADDR   00DEH   A   
+BIT31. . . . . . .  C ADDR   00BDH   A   
+BIT32. . . . . . .  C ADDR   00C8H   A   
+BIT33. . . . . . .  C ADDR   00D3H   A   
+BIT4 . . . . . . .  C ADDR   0096H   A   
+BIT40. . . . . . .  C ADDR   00ACH   A   
+BIT41. . . . . . .  C ADDR   00A1H   A   
+BIT4A. . . . . . .  C ADDR   016AH   A   
+DALEJ. . . . . . .  C ADDR   0090H   A   
+DELAY. . . . . . .  C ADDR   016DH   A   
+DELAYL . . . . . .  C ADDR   0172H   A   
+DZ . . . . . . . .  C ADDR   0072H   A   
+E. . . . . . . . .  B ADDR   0090H.0 A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+ET1. . . . . . . .  B ADDR   00A8H.3 A   
+JED. . . . . . . .  C ADDR   0081H   A   
+LCDZAPIS . . . . .  C ADDR   017BH   A   
+LICZNIK0 . . . . .  C ADDR   0063H   A   
+LICZNIK1 . . . . .  C ADDR   016CH   A   
+MAGISTRALA . . . .  D ADDR   0080H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+POMIN. . . . . . .  C ADDR   0157H   A   
+PSTART . . . . . .  C ADDR   0058H   A   
+REFRESH. . . . . .  C ADDR   0091H   A   
+RS . . . . . . . .  B ADDR   0090H.2 A   
+RW . . . . . . . .  B ADDR   0090H.1 A   
+SK1. . . . . . . .  C ADDR   016FH   A   
+SK2. . . . . . . .  C ADDR   0176H   A   
+SK3. . . . . . . .  C ADDR   0174H   A   
+SPRAWDZ. . . . . .  B ADDR   00B0H.2 A   
+ST . . . . . . . .  C ADDR   0063H   A   
+START. . . . . . .  C ADDR   001DH   A   
+STOP . . . . . . .  C ADDR   0061H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+USTAWD . . . . . .  B ADDR   00B0H.4 A   
+USTAWJ . . . . . .  B ADDR   00B0H.3 A   
+USTAWS . . . . . .  B ADDR   00B0H.5 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
