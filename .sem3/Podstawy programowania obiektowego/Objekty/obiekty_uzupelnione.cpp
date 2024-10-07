@@ -105,39 +105,39 @@ int main(int argc, char** argv) {
 		cout<<"9.getCena"<<endl;
 		cout<<"5.koniec"<<endl<<endl;
 	
-	zn=getch();
-	switch(zn)
-	{
-		case'1': 	t1.czysc();
-					break;
-		case'2':	{
-						cout<<"nazwa: ";	gets(n);
-						cout<<"cena: ";		cin>>c;
-						cout<<"sztuk: ";	cin>>sz;
-						cin.ignore();
-						t1.pobierz(n,c,sz);	//lub seterami
+		zn=getch();
+		switch(zn)
+		{
+			case'1': 	t1.czysc();
 						break;
-					}
-		case'3':	cout<<"Nazwa towaru:	"<<t1.getNazwa()<<endl;
-					cout<<"Cena towaru:		"<<t1.getCena()<<endl;
-					cout<<"Liczba sztuk:	"<<t1.getSztuk()<<endl<<endl;
-					break;
-		case'4':	cout<<t1.wartosc()<<endl;
-					break;
-		case'6':	t1.setNazwa("Nowa nazwa");
-					break;
-		case'7':	cout<<"cena: "; cin>>c;
-					cin.ignore();
-					if(!t1.setCena(c))
-						cout<<"Zla cena! Nie ustawiono ceny"<<endl;
-					break;
-		case'8':	cout<<"Nazwa towaru:	"<<t1.getNazwa()<<endl;
-					break;
-		case'9':	cout<<"Cena towaru:	"<<t1.getCena()<<endl;
-					break;
-		case'5':	cout<<"do widzenia"<<endl;
-					getchar();
-	}
+			case'2':	{
+							cout<<"nazwa: ";	gets(n);
+							cout<<"cena: ";		cin>>c;
+							cout<<"sztuk: ";	cin>>sz;
+							cin.ignore();
+							t1.pobierz(n,c,sz);	//lub seterami
+							break;
+						}
+			case'3':	cout<<"Nazwa towaru:	"<<t1.getNazwa()<<endl;
+						cout<<"Cena towaru:		"<<t1.getCena()<<endl;
+						cout<<"Liczba sztuk:	"<<t1.getSztuk()<<endl<<endl;
+						break;
+			case'4':	cout<<t1.wartosc()<<endl;
+						break;
+			case'6':	t1.setNazwa("Nowa nazwa");
+						break;
+			case'7':	cout<<"cena: "; cin>>c;
+						cin.ignore();
+						if(!t1.setCena(c))
+							cout<<"Zla cena! Nie ustawiono ceny"<<endl;
+						break;
+			case'8':	cout<<"Nazwa towaru:	"<<t1.getNazwa()<<endl;
+						break;
+			case'9':	cout<<"Cena towaru:	"<<t1.getCena()<<endl;
+						break;
+			case'5':	cout<<"do widzenia"<<endl;
+						getchar();
+		}
 	}
 	while(zn!='5');
 	return 0;
