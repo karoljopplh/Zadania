@@ -119,7 +119,7 @@ int main(int argc, char** argv) {
 							break;
 						}
 			case'3':	cout<<"Nazwa towaru:	"<<t1.getNazwa()<<endl;
-						cout<<"Cena towaru:		"<<t1.getCena()<<endl;
+						cout<<"Cena towaru:	"<<t1.getCena()<<endl;
 						cout<<"Liczba sztuk:	"<<t1.getSztuk()<<endl<<endl;
 						break;
 			case'4':	cout<<t1.wartosc()<<endl;
