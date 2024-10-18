@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <conio.h>
 #include <string.h>
-
+#define L 20
 using namespace std;
 class towar
 {
@@ -54,7 +54,7 @@ bool towar::setCena(float cena)
 {
 	if(cena>0)
 	{
-		this->cena=cena; //this-> sluzy jako odnosnik do zmiennej, która nie bêdzie lokalna
+		this->cena=cena; //this-> sluzy jako odnosnik do zmiennej, ktÃ³ra nie bÃªdzie lokalna
 		return 1;
 	}
 	else //nie musi
@@ -96,17 +96,17 @@ float towar::wartosc()
 }
 
 int main(int argc, char** argv) {
-	towar t1, t2("test", 6, 10), kopiat2(t2), tablica[5];// maj¹c 2 konstruktory, pierwszy jest bezparametryczny, a drugi parametryczny
+	towar t1, t2("test", 6, 10), kopiat2(t2), tablica[5];// majÂ¹c 2 konstruktory, pierwszy jest bezparametryczny, a drugi parametryczny
 	char n[20],zn;
 	float c;
 	int sz;
 	
 	cout<<"nazwa: "; gets(n); //W v2 Dla celow testowych;
-	cout<<"cena: "; cin>>c
+	cout<<"cena: "; cin>>c;
 	cout<<"sztuk: "; cin>>sz;
 	cin.ignore();
 	t2.pobierz(n,c,sz);
-	towar kopiat2(t2); 	//zastowanie konstruktora kopiujacego
+	//towar kopiat2(t2); 	//zastowanie konstruktora kopiujacego
 	t1=t2; 				//przypisanie
 	
 	do
