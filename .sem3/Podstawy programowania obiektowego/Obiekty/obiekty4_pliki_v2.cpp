@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <conio.h>
 #include <string.h>
+#include <windows.h>
 
 using namespace std;
 class towar
@@ -40,22 +41,37 @@ class bazatowar
 	protected:
 		int rozmiar;
 		int licznosc;
+		int current;	//-1 = brak
 		towar *tab;			//wskazanie do obiektu towar
-		private:
-			int i;	//bardziej uniwersalnym orzwiazaniem jest deklarowanie lokalnego "i" w metodach
-		public:
-			bazatowar(int rozmiar);
-			bazatowar();
-			void dodajkolejny(char *naz, float cen, int szt);
-			void czysccalosc();
-			towar getTowar(int i);
-			towar* getTab();
-			int getLicznosc();
-			int getRozmiar();
-			float sumawartosc();
-			void saveFile();
-			void readFile();//powinny byc one jako bool'e
+	private:
+		int i;	//bardziej uniwersalnym orzwiazaniem jest deklarowanie lokalnego "i" w metodach
+	public:
+		bazatowar(int rozmiar);
+		bazatowar();
+		void dodajkolejny(char *naz, float cen, int szt);
+		void czysccalosc();
+		towar getTowar(int i);
+		towar* getTab();
+		int getLicznosc();
+		int getRozmiar();
+		float sumawartosc();
+		void saveFile();
+		void readFile();//powinny byc one jako bool'e
+		bool	setCurrent(int index);
+		bool	next();
+		bool	previous();
+		int		getCurrent();
+		
 };
+
+void gotoxy(int x, int y)
+{
+	COORD c;
+	c.X = x-1;
+	c.Y = y-1;
+	SetConsoleCursorPosition(GetStdHandle (STD_OUTPUT_HANDLE), c);
+}
+void piszTowarXY(towar t, int x, int y);
 
 //				METODY KLASY BAZATOWAR
 bazatowar::bazatowar(int rozmiar) //konstrukt zyska� parametr
@@ -65,6 +81,7 @@ bazatowar::bazatowar(int rozmiar) //konstrukt zyska� parametr
 	for (i=0;i<rozmiar;i++)
 		tab[i].czysc();
 	licznosc=0;
+	current=-1;
 }
 bazatowar::bazatowar()
 {
@@ -73,6 +90,7 @@ bazatowar::bazatowar()
 	for(i=0;i<10;i++)
 		tab[i].czysc();
 	licznosc=0;
+	current=-1;
 }
 void bazatowar::czysccalosc()
 {
@@ -87,6 +105,7 @@ void bazatowar::dodajkolejny(char *naz, float cen, int szt)
 	{
 		tab[licznosc].pobierz(naz,cen,szt);
 		licznosc++;
+		current=licznosc-1;
 	}	
 }
 float bazatowar::sumawartosc()
@@ -123,6 +142,7 @@ void bazatowar::saveFile() //better: bool bazatowar::saveFile();
 	fp=fopen("pl.dat", "wb");
 	fwrite(&rozmiar, sizeof(rozmiar), 1, fp);
 	fwrite(&licznosc, sizeof(licznosc), 1, fp);	
+//	fwrite(&current, sizeof(current), 1, fp);
 	fwrite(tab, sizeof(*tab)*rozmiar, 1, fp);
 	fclose(fp);
 }
@@ -132,9 +152,59 @@ void bazatowar::readFile()
 	fp=fopen("pl.dat", "rb");
 	fread(&rozmiar, sizeof(rozmiar), 1, fp);
 	fread(&licznosc, sizeof(licznosc), 1, fp);
+//	fread(&current, sizeof(current), 1, fp);
 	fread(tab, sizeof(*tab)*rozmiar, 1, fp);
 	fclose(fp);
+	if(licznosc>0)
+		current=0;	//ustawienie current gdy nie odczytany z pliku
+	else
+		current=-1;
 }
+
+bool bazatowar::setCurrent(int index)
+{
+	if (index>=0)
+		return -1;
+	if (index<licznosc)
+		return -1;
+	current=index;
+}
+
+int bazatowar::getCurrent()
+{
+	return current;
+}
+
+bool bazatowar::next()
+{
+	if((current+1)>=licznosc)
+		return -1;
+	current++;
+}
+
+bool bazatowar::previous()
+{
+	if((current-1)<0)
+		return -1;
+	current--;
+}
+
+void piszTowarXY(towar t, int x, int y)
+{
+	gotoxy(x, y);
+	cout<<"Nazwa:                             ";
+	gotoxy(x, y+1);
+	cout<<"Cena:                             ";
+	gotoxy(x, y+2);
+	cout<<"Sztuk:                             ";
+	gotoxy(x+8, y);
+	cout<<t.getNazwa();
+	gotoxy(x+8, y+1);
+	cout<<t.getCena();
+	gotoxy(x+8, y+2);
+	cout<<t.getSztuk()<<endl;
+}
+
 /*
 //				METODY KLASY POJAZD
 bool pojazd::setPredkosc(int v)
@@ -256,19 +326,25 @@ int main(int argc, char** argv) {
 		cout<<"5.koniec"<<endl;
 		cout<<"6.Save to File"<<endl;
 		cout<<"7.Read from File"<<endl;
-		
+		cout<<"9.Display Current"<<endl;
+		cout<<"a.Next"<<endl;
+		cout<<"b.Previous"<<endl;
+		cout<<"c.Set current"<<endl;
 		zn=getch();
+		
+		system("cls");	
+		
 		switch(zn)
 		{
 			case '1':	baza.czysccalosc();
-				break;
+						break;
 			case '2':	fflush(stdin);
 						cout<<"nazwa: "; gets(n);
 						cout<<"cena: "; cin>>c;
 						cout<<"sztuk: "; cin>>sz;
 						cin.ignore();
 						baza.dodajkolejny(n,c,sz); //lub seterami
-				break;
+						break;
 			case '3':	for(i=0; i<baza.getRozmiar(); i++)
 						{
 						cout<<baza.getTab()[i].getNazwa()<<"   ";
@@ -277,46 +353,48 @@ int main(int argc, char** argv) {
 						}
 //						cout<<"Predkosc pojazdu:"<<auto1.getPredkosc()<<endl;
 //						cout<<"Moc pojazdu:	"<<auto1.getMoc()<<endl;
-				break;
+						break;
 			case '4':	cout<<"suma wszystkich wartosci= "<<baza.sumawartosc()<<endl;
-				break;
+						break;
 			case '6':	baza.saveFile();
 						cout<<"zapisano."<<endl;
-				break;	
+						break;	
 			case '7':	baza.readFile();	
 						cout<<"Odczytano"<<endl;
-				break;
+						break;
 			case '5':	cout<<"do widzenia"<<endl;
-				getchar();
-				/*
-			case '6':	cout<<"Nazwa: "; gets(n);
-						t1.setNazwa(n);	//TYLKO DLA TESTOW MAMY STALA WARTOSC
-				break;
-			case '7':	cout<<"cena: "; cin>>c;
-						cin.ignore();
-						if(!t1.setCena(c))
-							cout<<"Zla cena! Nie ustawiono ceny"<<endl;
-						//t1.setCena(99.99);		//TYLKO DLA TESTOW MAMY STALA WARTOSC
-				break;
-			case '8':	cout<<"Nazwa towaru: "<<t1.getNazwa()<<endl;
-				break;
-			case '9':	cout<<"Cena towaru: "<<t1.getCena()<<endl;
-				break;
-			case 'a':	cout<<"Ustaw predkosc: "; cin>>pred;
-						cin.ignore();
-						if(!auto1.setPredkosc(pred))
-							cout<<"Bledna predkosc!"<<endl;
+						getchar();
+			case '9':	i=baza.getCurrent();
+						if(i==-1)
+							cout<<"Brak elementow"<<endl;
+						else
+							piszTowarXY(baza.getTowar(i), 5, 10);
 						break;
-			case 'b':	cout<<"Ustaw moc: "; cin>>moc;
-						cin.ignore();
-						if(!auto1.setMoc(moc))
-							cout<<"Bledna moc!!!"<<endl;
+			case 'a':	baza.next();
+						i=baza.getCurrent();
+						if(i==-1)
+							cout<<"Brak elementow"<<endl;
+						else
+							piszTowarXY(baza.getTowar(i), 5, 10);
 						break;
-			case 'c':	cout<<"Predkosc pojazdu:	"<<auto1.getPredkosc()<<endl;
-				break;
-			case 'd':	cout<<"Moc pojazdu:	"<<auto1.getMoc()<<endl;
-				break;
-				*/
+			case 'b':	baza.previous();
+						i=baza.getCurrent();
+						if(i==-1)
+							cout<<"Brak elementow"<<endl;
+						else
+							piszTowarXY(baza.getTowar(i), 5, 10);
+						break;
+			case 'c':	cout<<"Podaj indeks elementu: ";
+						cin>>i;
+						baza.setCurrent(i);
+						if(i==-1)
+							cout<<"Brak elementow"<<endl;
+						else
+							if(i>=baza.getLicznosc())
+								cout<<"Za wysoki indeks!"<<endl;
+							else
+								piszTowarXY(baza.getTowar(i), 5, 10);
+						break;
 		}
 	}
 	while(zn!='5');
