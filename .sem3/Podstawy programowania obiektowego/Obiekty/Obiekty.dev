@@ -1,5 +1,5 @@
 [Project]
-filename=Objekty.dev
+filename=Obiekty.dev
 name=Objekty
 Type=1
 Ver=2
@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=obiekty4_pliki_v2.cpp
+FileName=obiekty4_delete.cpp
 CompileCpp=1
 Folder=
 Compile=1
