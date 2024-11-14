@@ -50,7 +50,7 @@ class bazatowar
 		bazatowar();
 		void dodajkolejny(char *naz, float cen, int szt);
 		void czysccalosc();
-		towar getTowar(int i);w
+		towar getTowar(int i);
 		
 		towar* getTab();
 		int getLicznosc();
@@ -67,7 +67,6 @@ class bazatowar
 		void	sortCena();
 		void	sortNazwa();
 };
-
 void gotoxy(int x, int y)
 {
 	COORD c;
@@ -167,11 +166,12 @@ void bazatowar::readFile()
 
 bool bazatowar::setCurrent(int index)
 {
-	if (index>=0)
-		return -1;
-	if (index<licznosc)
-		return -1;
-	current=index;
+	if(index>=0 && index<licznosc)
+	{
+		current=index;
+		return true;
+	}
+	return false;
 }
 
 int bazatowar::getCurrent()
@@ -182,15 +182,17 @@ int bazatowar::getCurrent()
 bool bazatowar::next()
 {
 	if((current+1)>=licznosc)
-		return -1;
+		return 0;
 	current++;
+	return 1;
 }
 
 bool bazatowar::previous()
 {
 	if((current-1)<0)
-		return -1;
+		return 0;
 	current--;
+	return 1;
 }
 
 void piszTowarXY(towar t, int x, int y)
@@ -221,40 +223,39 @@ void bazatowar::delete2Current()
 	licznosc--;
 }
 
-/*
-//				METODY KLASY POJAZD
-bool pojazd::setPredkosc(int v)
+void	bazatowar::sortCena()
 {
-	if(v>0)
+	for (int i = 1; i < licznosc; ++i) 
 	{
-		this->predkosc=v;
-		return 1;
-	}
-	else
-		return 0;
+        float key = tab[i].getCena();
+        int j = i - 1;
+
+        while (j >= 0 && tab[j].getCena() > key) 
+		{
+            tab[j + 1].setCena(tab[j].getCena());
+            j = j - 1;
+        }
+        tab[j + 1].setCena(key);
+    }
 }
 
-bool pojazd::setMoc(int p)
+void	bazatowar::sortNazwa()
 {
-	if(p>0)
+	for (int i = 1; i < licznosc; ++i) 
 	{
-		this->moc=p;
-		return 1;
-	}
-	else
-		return 0;
+        char key[20];
+        strcpy(key, tab[i].getNazwa());
+        int j = i - 1;
+        
+        while (j >= 0 && (strcmp(key, tab[j].getNazwa())) < 0) 
+		{
+            tab[j + 1].setNazwa(tab[j].getNazwa());
+            j = j - 1;
+        }
+        tab[j+1].setNazwa(key);
+    }
 }
 
-int pojazd::getPredkosc()
-{
-	return predkosc;
-}
-
-int pojazd::getMoc()
-{
-	return moc;
-}
-*/
 //				METODY KLASY TOWAR
 towar::towar()
 {
@@ -348,6 +349,8 @@ int main(int argc, char** argv) {
 		cout<<"a.Next"<<endl;
 		cout<<"b.Previous"<<endl;
 		cout<<"c.Set current"<<endl;
+		cout<<"s.Sort cena asc"<<endl;
+		cout<<"n.Sort name asc"<<endl;
 		zn=getch();
 		
 		system("cls");	
@@ -435,6 +438,12 @@ int main(int argc, char** argv) {
 								cout<<"Za wysoki indeks!"<<endl;
 							else
 								piszTowarXY(baza.getTowar(i), 5, 10);
+						break;
+			case 's':	baza.sortCena();
+						cout<<"Posortowano"<<endl;
+						break;
+			case 'n':	baza.sortNazwa();
+						cout<<"Posortowano"<<endl;
 						break;
 		}
 	}
