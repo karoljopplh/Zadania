@@ -23,35 +23,25 @@ class towar
 		int getSztuk();
 		float wartosc();
 };
-/*
-class pojazd:public towar //
-{
-	protected:
-		int predkosc;
-		int moc;
-	public:
-		bool setPredkosc(int v);
-		bool setMoc(int v);
-		int getPredkosc();
-		int getMoc();
-};
-*/
+
 class bazatowar
 {
 	protected:
 		int rozmiar;
 		int licznosc;
+		int licznoscFound;
 		int current;	//-1 = brak
+		int currentFound;
 		towar *tab;			//wskazanie do obiektu towar
+		towar *found;
 	private:
-		int i;	//bardziej uniwersalnym orzwiazaniem jest deklarowanie lokalnego "i" w metodach
+		int i;	//bardziej uniwersalnym orzwiazaniem jest deklarowanie lokalnego "i" w metodach - bruh then why are we doing this
 	public:
 		bazatowar(int rozmiar);
 		bazatowar();
 		void dodajkolejny(char *naz, float cen, int szt);
 		void czysccalosc();
 		towar getTowar(int i);
-		
 		towar* getTab();
 		int getLicznosc();
 		int getRozmiar();
@@ -66,6 +56,14 @@ class bazatowar
 		void	delete2Current();
 		void	sortCena();
 		void	sortNazwa();
+		bool	searchCena(float min, float max);
+		bool	searchNazwa(char szukanaNazwa[]);
+		int		getLicznoscFound();
+		int		getCurrentFound();
+		towar	getTowarFound(int i);
+		towar*	getFound();
+		void	nextFound();
+		void	previousFound();
 };
 void gotoxy(int x, int y)
 {
