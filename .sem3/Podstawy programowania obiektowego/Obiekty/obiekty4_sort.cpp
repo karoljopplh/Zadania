@@ -56,14 +56,14 @@ class bazatowar
 		void	delete2Current();
 		void	sortCena();
 		void	sortNazwa();
-		bool	searchCena(float min, float max);
+		bool	searchCena(float min, float max);	//int is better, since we can respond to specific errors and not done or not
 		bool	searchNazwa(char szukanaNazwa[]);
 		int		getLicznoscFound();
 		int		getCurrentFound();
 		towar	getTowarFound(int i);
 		towar*	getFound();
-		void	nextFound();
-		void	previousFound();
+		bool	nextFound();
+		bool	previousFound();
 };
 void gotoxy(int x, int y)
 {
@@ -254,6 +254,77 @@ void	bazatowar::sortNazwa()
     }
 }
 
+	bool	bazatowar::searchCena(float min, float max)
+	{
+		licznoscFound = 0;
+		for(int i=0; i<licznosc; i++)
+		{
+			if(tab[i].getCena() > min && tab[i].getCena() < max)
+			{
+				found[licznoscFound]=tab[i];
+				licznoscFound++;
+			}
+		}
+		return licznoscFound;
+	}
+	
+	bool	bazatowar::searchNazwa(char szukanaNazwa[])
+	{
+		licznoscFound = 0;
+		currentFound = -1;
+		for(int i=0; i<licznosc; i++)
+		{
+			if(strcmp(szukanaNazwa, tab[i].getNazwa())==0)
+			{
+				found[licznoscFound]=tab[i];
+				licznoscFound++;
+			}
+		}
+		if(licznoscFound)
+		{
+			currentFound=0;
+			return 1;
+		}
+		else
+			return 0;
+	}
+	
+	int		bazatowar::getLicznoscFound()
+	{
+		return licznoscFound;
+	}
+	
+	int		bazatowar::getCurrentFound()
+	{
+		return currentFound;
+	}
+	
+	towar	bazatowar::getTowarFound(int i)
+	{
+		return found[i];
+	}
+	
+	towar*	bazatowar::getFound()
+	{
+		return found;
+	}
+	
+	bool	bazatowar::nextFound()
+	{
+		if((currentFound+1)>=licznoscFound)
+			return 0;
+		currentFound++;
+		return 1;
+	}
+	
+	bool	bazatowar::previousFound()
+	{
+		if((currentFound-1)<0)
+			return 0;
+		currentFound--;
+		return 1;
+	}
+
 //				METODY KLASY TOWAR
 towar::towar()
 {
@@ -324,8 +395,8 @@ int main(int argc, char** argv) {
 //	pojazd auto1;
 //	bazatowar baza;
 	
-	char n[20],zn;
-	float c;
+	char n[20],zn, szukanaNazwa[20], n[20];
+	float c, min, max;
 	int sz, i, rozmiar; //rozmiar jest tutaj jako lokalna zmienna
 	
 	cout<<"ile elementow w tablicy? ";
@@ -338,7 +409,6 @@ int main(int argc, char** argv) {
 		cout<<"2.czytanie z dodaniem kolejnego elementu"<<endl;
 		cout<<"3.wypisanie calej tablicy"<<endl;
 		cout<<"4.suma wartosci"<<endl;
-		cout<<"5.koniec"<<endl;
 		cout<<"6.Save to File"<<endl;
 		cout<<"7.Read from File"<<endl;
 		cout<<"8.Delete Current"<<endl;
@@ -349,6 +419,11 @@ int main(int argc, char** argv) {
 		cout<<"c.Set current"<<endl;
 		cout<<"s.Sort cena asc"<<endl;
 		cout<<"n.Sort name asc"<<endl;
+		cout<<"S. Search Cena"<<endl;
+		cout<<"N. Search Nazwa"<<endl;
+		cout<<"A. Next Found"<<endl;
+		cout<<"B. Previous Found"<<endl;
+		cout<<"5.koniec"<<endl;
 		zn=getch();
 		
 		system("cls");	
@@ -442,6 +517,30 @@ int main(int argc, char** argv) {
 						break;
 			case 'n':	baza.sortNazwa();
 						cout<<"Posortowano"<<endl;
+						break;
+			case 'S':	cout<<"min: ";
+						cin>>min;
+						cout<<"max: ";
+						cin>>max;
+						if(!baza.searchCena(min, max))
+							cout<<"nic nie znaleziono"<<endl;
+						else
+						{
+							i=baza.getCurrent();
+							piszTowarXY(baza.getTowar(i), 5, 10);	
+						}
+						break;
+			case 'N':	cout<<"Podaj szukana nazwe: ";
+						fflush(stdin);
+						gets(n);
+						baza.searchNazwa(szukanaNazwa);
+						break;
+			case 'A':	baza.nextFound();
+						i=baza.getCurrentFound();
+						if(i==-1)
+							
+						break;
+			case 'B':	baza.previousFound();
 						break;
 		}
 	}
