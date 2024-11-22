@@ -236,7 +236,7 @@ void bazatowar::delete2Current()
 {
 	if(licznosc>=1)
 	{
-		tab.erase(tab.begin() + current, tab.end());
+		tab.erase(tab.begin() + current);
 		if(current==licznosc-1)
 			current--;
 		licznosc--;
