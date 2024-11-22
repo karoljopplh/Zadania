@@ -33,27 +33,26 @@ class bazatowar
 		int licznoscFound;
 		int current;	//-1 = brak
 		int currentFound;
-		towar *tab;			//wskazanie do obiektu towar
-		towar *found;
+		vector<towar> tab;
+		vector<towar> found;
 	private:
 		int i;	//bardziej uniwersalnym orzwiazaniem jest deklarowanie lokalnego "i" w metodach - bruh then why are we doing this
 	public:
-		bazatowar(int rozmiar);
 		bazatowar();
 		void dodajkolejny(char *naz, float cen, int szt);
 		void czysccalosc();
 		towar getTowar(int i);
-		towar* getTab();
+		towar getTab();
 		int getLicznosc();
-		int getRozmiar();
+	//	int getRozmiar();
 		float sumawartosc();
 		void saveFile();
-		void readFile();//powinny byc one jako bool'e
+		void readFile();
 		bool	setCurrent(int index);
 		bool	next();
 		bool	previous();
 		int		getCurrent();
-		void	deleteCurrent();
+	//	void	deleteCurrent();
 		void	delete2Current();
 		void	sortCena();
 		void	sortNazwa();
@@ -62,7 +61,7 @@ class bazatowar
 		int		getLicznoscFound();
 		int		getCurrentFound();
 		towar	getTowarFound(int i);
-		towar*	getFound();
+		towar	getFound();
 		bool	nextFound();
 		bool	previousFound();
 };
@@ -76,7 +75,7 @@ void gotoxy(int x, int y)
 void piszTowarXY(towar t, int x, int y);
 
 //				METODY KLASY BAZATOWAR
-bazatowar::bazatowar(int rozmiar) //konstrukt zyska� parametr
+/*bazatowar::bazatowar(int rozmiar) //konstrukt zyska� parametr
 {
 	this->rozmiar=rozmiar;
 	tab=new towar[rozmiar];
@@ -85,77 +84,93 @@ bazatowar::bazatowar(int rozmiar) //konstrukt zyska� parametr
 	licznosc=0;
 	current=-1;
 }
+*/
 bazatowar::bazatowar()
 {
-	this->rozmiar=10; //this nie jest konieczne
-	tab=new towar[10];
-	for(i=0;i<10;i++)
-		tab[i].czysc();
+	licznosc=0;
+	current=-1;
+	licznoscFound=0;
+	currentFound=-1;
+}
+
+void bazatowar::czysccalosc()
+{
+	tab.erase(tab.begin(), tab.end());
 	licznosc=0;
 	current=-1;
 }
-void bazatowar::czysccalosc()
-{
-	rozmiar=10;
-	for(i=0;i<rozmiar;i++)
-		tab[i].czysc();
-	licznosc=0;	
-}
+
 void bazatowar::dodajkolejny(char *naz, float cen, int szt)
 {
-	if(licznosc<rozmiar)
-	{
-		tab[licznosc].pobierz(naz,cen,szt);
-		licznosc++;
-		current=licznosc-1;
-	}	
+	towar t;
+	t.pobierz(naz, cen, szt);
+	tab.push_back(t);
+	licznosc++;
+	current=licznosc-1;
 }
 float bazatowar::sumawartosc()
 {
 	float suma_wart=0;
-	for(i=0;i<rozmiar;i++)
+	for(i=0;i<licznosc;i++)
 		suma_wart+=tab[i].wartosc();
-		return suma_wart;
+	return suma_wart;
 }
 int bazatowar::getLicznosc()
 {
 	return licznosc;
 }
+/*
 int bazatowar::getRozmiar()
 {
 	return rozmiar;
 }
+*/
 towar bazatowar::getTowar(int i) //nara�ona na wyj�cie poza zakres liczno�ci
 {
 	return tab[i];
 }
-towar* bazatowar::getTab()
+
+towar bazatowar::getTowarFound(int i)
 {
-	return tab;
+	return found[i];
 }
+
+towar bazatowar::getTab()
+{
+	return tab.at(current);
+}
+
+towar bazatowar::getFound()
+{
+	return found.at(current);
+}
+
 void bazatowar::saveFile() //better: bool bazatowar::saveFile();
 {
 	FILE *fp;
-/*
-	better
-	if ((fp = fopen(nazwa, "wb)) == NULL);
-		return 0;
-*/
-	fp=fopen("pl.dat", "wb");
-	fwrite(&rozmiar, sizeof(rozmiar), 1, fp);
+	fp=fopen("datavector.dat", "wb");
+	licznosc=tab.size();
+//	fwrite(&rozmiar, sizeof(rozmiar), 1, fp);
 	fwrite(&licznosc, sizeof(licznosc), 1, fp);	
-//	fwrite(&current, sizeof(current), 1, fp);
-	fwrite(tab, sizeof(*tab)*rozmiar, 1, fp);
+	for(int i=0; i<tab.size(); i++)
+		fwrite(&tab[i], sizeof(tab[i]), 1, fp);
 	fclose(fp);
 }
 void bazatowar::readFile()
 {
 	FILE *fp;
-	fp=fopen("pl.dat", "rb");
-	fread(&rozmiar, sizeof(rozmiar), 1, fp);
+	tab.erase(tab.begin(), tab.end());
+	towar t;
+	licznosc=0;
+	current=-1;
+	fp=fopen("datavector.dat", "rb");
+//	fread(&rozmiar, sizeof(rozmiar), 1, fp);
 	fread(&licznosc, sizeof(licznosc), 1, fp);
-//	fread(&current, sizeof(current), 1, fp);
-	fread(tab, sizeof(*tab)*rozmiar, 1, fp);
+	for(int i=0; i<tab.size(); i++)
+	{
+		fread(&t, sizeof(t), 1, fp);
+		tab.push_back(t);
+	}
 	fclose(fp);
 	if(licznosc>0)
 		current=0;	//ustawienie current gdy nie odczytany z pliku
@@ -209,17 +224,23 @@ void piszTowarXY(towar t, int x, int y)
 	gotoxy(x+8, y+2);
 	cout<<t.getSztuk()<<endl;
 }
-
+/*
 void bazatowar::deleteCurrent()
 {
 	for(int i=current; i<licznosc; i++)
 		tab[i]=tab[i+1];
 	licznosc--;
 }
+*/
 void bazatowar::delete2Current()
 {
-	tab[current]=tab[licznosc-1];
-	licznosc--;
+	if(licznosc>=1)
+	{
+		tab.erase(tab.begin() + current, tab.end());
+		if(current==licznosc-1)
+			current--;
+		licznosc--;
+	}
 }
 
 void	bazatowar::sortCena()
@@ -258,26 +279,35 @@ void	bazatowar::sortNazwa()
 bool	bazatowar::searchCena(float min, float max)
 {
 	licznoscFound = 0;
+	currentFound=-1;
+	found.erase(found.begin(), found.end());
 	for(int i=0; i<licznosc; i++)
 	{
-		if(tab[i].getCena() > min && tab[i].getCena() < max)
+		if(tab[i].getCena() >= min && tab[i].getCena() <= max)
 		{
-			found[licznoscFound]=tab[i];
+			found.push_back(tab[i]);
 			licznoscFound++;
 		}
 	}
-	return licznoscFound;
+	if(licznoscFound)
+	{
+		currentFound=0;
+		return 1;
+	}
+	else
+		return 0;
 }
 
 bool	bazatowar::searchNazwa(char szukanaNazwa[])
 {
 	licznoscFound = 0;
 	currentFound = -1;
+	found.erase(found.begin(), found.end());
 	for(int i=0; i<licznosc; i++)
 	{
 		if(strcmp(szukanaNazwa, tab[i].getNazwa())==0)
 		{
-			found[licznoscFound]=tab[i];
+			found.push_back(tab[i]);
 			licznoscFound++;
 		}
 	}
@@ -298,16 +328,6 @@ int		bazatowar::getLicznoscFound()
 int		bazatowar::getCurrentFound()
 {
 	return currentFound;
-}
-
-towar	bazatowar::getTowarFound(int i)
-{
-	return found[i];
-}
-
-towar*	bazatowar::getFound()
-{
-	return found;
 }
 
 bool	bazatowar::nextFound()
@@ -396,14 +416,15 @@ int main(int argc, char** argv) {
 //	pojazd auto1;
 //	bazatowar baza;
 	
-	char n[20],zn, szukanaNazwa[20], n[20];
+	char n[20],zn, szukanaNazwa[20];
 	float c, min, max;
 	int sz, i, rozmiar; //rozmiar jest tutaj jako lokalna zmienna
-	
+/*	
 	cout<<"ile elementow w tablicy? ";
 	cin>>rozmiar;
 	cin.ignore();
-	bazatowar baza(rozmiar); 	
+*/
+	bazatowar baza; 	
 	do
 	{
 		cout<<"1.czyszczenie"<<endl;
@@ -412,7 +433,7 @@ int main(int argc, char** argv) {
 		cout<<"4.suma wartosci"<<endl;
 		cout<<"6.Save to File"<<endl;
 		cout<<"7.Read from File"<<endl;
-		cout<<"8.Delete Current"<<endl;
+	//	cout<<"8.Delete Current"<<endl;
 		cout<<"u.Delete Current v2"<<endl;
 		cout<<"9.Display Current"<<endl;
 		cout<<"a.Next"<<endl;
@@ -440,11 +461,11 @@ int main(int argc, char** argv) {
 						cin.ignore();
 						baza.dodajkolejny(n,c,sz); //lub seterami
 						break;
-			case '3':	for(i=0; i<baza.getRozmiar(); i++)
+			case '3':	for(i=0; i<baza.getLicznosc(); i++)
 						{
-						cout<<baza.getTab()[i].getNazwa()<<"   ";
-						cout<<baza.getTab()[i].getCena()<<"   ";
-						cout<<baza.getTab()[i].getSztuk()<<endl;
+						cout<<baza.getTowar(i).getNazwa()<<"   ";
+						cout<<baza.getTowar(i).getCena()<<"   ";
+						cout<<baza.getTowar(i).getSztuk()<<endl;
 						}
 //						cout<<"Predkosc pojazdu:"<<auto1.getPredkosc()<<endl;
 //						cout<<"Moc pojazdu:	"<<auto1.getMoc()<<endl;
@@ -460,7 +481,7 @@ int main(int argc, char** argv) {
 			case '5':	cout<<"do widzenia"<<endl;
 						getchar();
 						break;
-			case '8':	cout<<"Czy na pewno chcesz usunac ten index:"<<endl;
+/*			case '8':	cout<<"Czy na pewno chcesz usunac ten index:"<<endl;
 						cout<<"T-tak, N-nie"<<endl;
 						piszTowarXY(baza.getTowar(i), 5, 10);
 						zn=getch();
@@ -479,6 +500,7 @@ int main(int argc, char** argv) {
 						}
 					//	przed usunieciem wypisac/upewnic
 						break;
+						*/
 			case 'u':	baza.delete2Current();
 					//	przed usunieciem wypisac/upewnic
 						break;

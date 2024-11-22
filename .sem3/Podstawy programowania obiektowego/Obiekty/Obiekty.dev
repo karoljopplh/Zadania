@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=obiekty4_sort.cpp
+FileName=obiekty6_vector.cpp
 CompileCpp=1
 Folder=
 Compile=1
