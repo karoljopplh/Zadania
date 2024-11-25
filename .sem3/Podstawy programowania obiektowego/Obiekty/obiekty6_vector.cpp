@@ -556,14 +556,24 @@ int main(int argc, char** argv) {
 			case 'N':	cout<<"Podaj szukana nazwe: ";
 						fflush(stdin);
 						gets(n);
-						baza.searchNazwa(szukanaNazwa);
+						if(baza.searchNazwa(szukanaNazwa));
+							cout<<"Nic nie znaleziono"<<endl;
+						else
+							piszTowarXY(baza.getTowarFound(i), 5, 10);
 						break;
 			case 'A':	baza.nextFound();
 						i=baza.getCurrentFound();
 						if(i==-1)
-							
+							cout<<"Brak znalezionych elementow."<<endl;
+						else
+							piszTowarXY(baza.getTowarFound(i), 5, 10);
 						break;
 			case 'B':	baza.previousFound();
+						i=baza.getCurrentFound();
+						if(i==-1)
+							cout<<"Brak znalezionych elementow."<<endl;
+						else
+							piszTowarXY(baza.getTowarFound(i), 5, 10);
 						break;
 		}
 	}
