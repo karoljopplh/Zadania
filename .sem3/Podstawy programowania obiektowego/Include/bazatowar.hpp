@@ -3,6 +3,7 @@
 	#include <vector>
 //	#include <string.h>
 	#include "towar.hpp"
+	
 	using namespace std;
 	
 	class bazatowar
@@ -42,5 +43,5 @@
 			bool	nextFound();
 			bool	previousFound();
 	};
-	#include "bazatowar.cpp"
+//	#include "bazatowar.cpp"
 #endif

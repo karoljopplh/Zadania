@@ -2,6 +2,7 @@
 	#define ClassTowar
 	#include <string.h>
 	
+	
 	using namespace std;
 	
 	class towar
@@ -22,5 +23,6 @@
 			int getSztuk();
 			float wartosc();
 	};
-	#include "towar.cpp"
+	
 #endif
+//#include "towar.cpp"

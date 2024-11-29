@@ -1,4 +1,7 @@
 #include <string.h>
+#include "towar.hpp"
+
+using namespace std;
 
 towar::towar()
 {

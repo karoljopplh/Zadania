@@ -3,20 +3,14 @@
 #include <conio.h>
 #include <windows.h>
 
-#include "towar.h"
-#include "bazatowar.h"
+#include "towar.hpp"
+#include "bazatowar.hpp"
 
 using namespace std;
 
 
 
-void gotoxy(int x, int y)
-{
-	COORD c;
-	c.X = x-1;
-	c.Y = y-1;
-	SetConsoleCursorPosition(GetStdHandle (STD_OUTPUT_HANDLE), c);
-}
+
 void piszTowarXY(towar t, int x, int y);
 
 int main(int argc, char** argv) 
