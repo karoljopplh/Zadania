@@ -8,9 +8,6 @@
 
 using namespace std;
 
-
-
-
 void piszTowarXY(towar t, int x, int y);
 
 int main(int argc, char** argv) 
