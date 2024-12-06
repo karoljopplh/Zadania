@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <iostream>
 #include <conio.h>
+#include <string.h>
 #include <windows.h>
 
-#include "towar.hpp"
-#include "bazatowar.hpp"
+#include "towar.cpp"
+#include "bazatowar.cpp"
 
 using namespace std;
 

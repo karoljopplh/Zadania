@@ -1,7 +1,7 @@
 #include "bazatowar.hpp"
-#include <iostream>
-#include <cstdio>
-#include <windows.h>
+#ifndef ClassTowar
+	#include <string.h>
+#endif
 using namespace std;
 
 void gotoxy(int x, int y)

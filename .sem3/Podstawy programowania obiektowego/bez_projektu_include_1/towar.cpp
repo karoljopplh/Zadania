@@ -1,6 +1,5 @@
-#ifndef ClassTowar
-	#include <string.h>
-#endif
+#include <string.h>
+#include "towar.hpp"
 
 using namespace std;
 
