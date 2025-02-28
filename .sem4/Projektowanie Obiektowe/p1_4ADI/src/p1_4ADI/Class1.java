@@ -15,13 +15,30 @@ public class Class1
 	{
 		double wynikd, d;
 		d=5.75;
-		int wynik, i=(int) d;
+		int wynik, i=(int) d, n, maxlos, a, b;
+		
+		n=czytaj.nextInt();
+		
+		int tab[];
+		tab = new int[n];
+		
 		int liczba;
 		Random los;
 		los=new Random();
 		Scanner czytaj=new Scanner(System.in);
 		boolean bool=true;
 		final int stała=100;
+		
+		
+		System.out.print("górny kres losowania?");
+		maxlos=czytaj.nextInt();
+		for(i=0; i<n; i++)
+		{
+			//System.out.print("Podaj element nr "+ i +"   ");
+			//tab[i]=czytaj.nextInt();
+			tab[i]= los.nextInt(maxlos+1);
+		}
+		
 		
 		System.out.println("Napis testowy");
 		System.out.println("\n\tWartość zmiennej i=" + i);
