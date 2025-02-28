@@ -396,7 +396,7 @@ int main(int argc, char** argv) {
 //	pojazd auto1;
 //	bazatowar baza;
 	
-	char n[20],zn, szukanaNazwa[20], n[20];
+	char n[20],zn, szukanaNazwa[20];
 	float c, min, max;
 	int sz, i, rozmiar; //rozmiar jest tutaj jako lokalna zmienna
 	
